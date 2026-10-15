@@ -118,6 +118,40 @@
   const coverInput = document.getElementById('cover-url')
   const stateLabel = document.getElementById('editor-state')
 
+  const renderReader = post => {
+    document.querySelector('.studio-shell').hidden = true
+    document.body.classList.add('article-reader-page')
+    document.title = `${post.title} · 一如既往`
+    const reader = document.createElement('main')
+    reader.className = 'article-reader'
+    const top = document.createElement('nav')
+    top.className = 'article-reader-nav'
+    top.innerHTML = '<a href="/">← 返回数字花园</a><a href="/archives/">文章归档与写作台</a>'
+    const article = document.createElement('article')
+    article.className = 'article-reader-paper'
+    if (post.cover) {
+      const cover = document.createElement('img')
+      cover.className = 'article-reader-cover'
+      cover.src = safeImage(post.cover)
+      cover.alt = `${post.title} 封面`
+      article.appendChild(cover)
+    }
+    const meta = document.createElement('p')
+    meta.className = 'article-reader-meta'
+    meta.textContent = `${post.category || '随笔'}　·　${formatDate(post.date)}`
+    const heading = document.createElement('h1')
+    heading.textContent = post.title
+    const summary = document.createElement('p')
+    summary.className = 'article-reader-summary'
+    summary.textContent = post.summary || ''
+    const content = document.createElement('div')
+    content.className = 'article-reader-content'
+    content.innerHTML = sanitizeHtml(post.content)
+    article.append(meta, heading, summary, content)
+    reader.append(top, article)
+    document.body.appendChild(reader)
+  }
+
   const setStatus = value => { stateLabel.textContent = value; clearTimeout(stateLabel._timer); stateLabel._timer = setTimeout(() => { stateLabel.textContent = '正在编辑' }, 2600) }
   const getArticle = status => ({
     ...(posts.find(post => post.id === currentId) || defaultArticle()),
@@ -364,7 +398,9 @@
       }
     } catch (_) { /* current local draft work remains available offline */ }
     const stored = readStored()
-    posts = stored || remotePosts.length ? (stored || remotePosts) : seed
+    const merged = new Map(remotePosts.map(post => [post.id, post]))
+    if (Array.isArray(stored)) stored.forEach(post => merged.set(post.id, normalizeArticle(post)))
+    posts = merged.size ? [...merged.values()] : seed
     try {
       const auto = JSON.parse(localStorage.getItem(AUTOSAVE) || 'null')
       if (auto) {
@@ -378,8 +414,16 @@
     renderCounts()
     const siteSince = localStorage.getItem('krrb-hacker-home-v1')
     try { document.getElementById('site-since').textContent = (JSON.parse(siteSince || '{}').siteSince || '2026-04-02').replace(/-/g, '.') } catch (_) { /* use repo creation date */ }
-    const id = new URLSearchParams(location.search).get('article')
-    if (id && posts.some(post => post.id === id)) openArticle(id)
+    const params = new URLSearchParams(location.search)
+    const readId = params.get('read')
+    const editId = params.get('article')
+    if (readId) {
+      const post = posts.find(item => item.id === readId && item.status === 'published')
+      if (post) renderReader(post)
+      else {
+        document.getElementById('editor-empty').querySelector('p').textContent = '找不到这篇已发布文章。若文章只保存在作者浏览器中，请作者先导出并发布文章数据。'
+      }
+    } else if (editId && posts.some(post => post.id === editId)) openArticle(editId)
   }
   load()
 })()

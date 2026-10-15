@@ -7,7 +7,7 @@
     slide1Title: '数字花园 · 原始封面', slide2Title: '霓虹天台 · 夜行者', slide3Title: '知识冢 · 深处的档案', slide4Title: '赤色竞技场 · 群像与热爱', heroIndex: 'A GIRL · A KEYBOARD\nA MORE INTERESTING UNIVERSE · VOL. 1',
     radioTag: 'ON AIR', radioFrequency: '102.4 FM', radioQuote: '“在代码的电波里，总有另一个我在回应。”', radioGenres: '/ LITERATURE\n/ CODE\n/ CINEMA\n/ DAILY LIFE\n/ ANOTHER UNIVERSE',
     secretCardTitle: '一封来自另一个宇宙的信', secretCardIntro: '去另一个平行宇宙，看看我的另一种可能。',
-    recentIndex: 'RECENT UPDATES', recentLabel: '最近更新', recentMore: '查看全部项目',
+    recentIndex: 'LATEST NOTES', recentLabel: '最近文章', recentMore: '查看全部文章',
     tickerOne: 'THINK DEEPER', tickerTwo: 'BUILD COOLER THINGS', tickerThree: 'LIVE A SOFTER LIFE',
     title: '你好，\n欢迎来到我的数字花园',
     intro: '在代码与日常之间，记录思考、收集喜欢，也种下一些柔软而坚定的东西。',
@@ -66,7 +66,7 @@
   document.documentElement.dataset.homeTheme = localStorage.getItem(`${STORAGE_KEY}-theme`) || 'dark'
   document.documentElement.dataset.theme = document.documentElement.dataset.homeTheme
   document.body.innerHTML = `
-    <header class="cyber-nav"><div class="brand-lockup"><a class="brand" href="#top" data-copy="siteName"></a><span class="brand-mark"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span><small data-copy="brandLine"></small></div>
+      <header class="cyber-nav"><div class="brand-lockup"><a class="brand" href="#top" data-copy="siteName"></a><img class="brand-mark" src="/img/garden-mark.svg?v=2" alt="" aria-hidden="true"><small data-copy="brandLine"></small></div>
       <nav aria-label="主导航"><a href="#top" data-copy="navHome"></a><a href="/archives/" data-copy="navWriting"></a><a href="#projects" data-copy="navProjects"></a><a href="#friends" data-copy="navFriends"></a><a href="#about" data-copy="navAbout"></a></nav>
       <div class="nav-actions"><span class="live-indicator"><i></i> <span data-copy="statusTag"></span></span><button class="icon-button" id="theme-toggle" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-moon"></i></button><button class="icon-button" id="edit-open" aria-label="自定义主页" title="自定义主页"><i class="fa-solid fa-sliders"></i></button></div>
     </header>
@@ -85,14 +85,15 @@
         <aside class="hero-rail" aria-label="电台和隐藏来信"><div class="radio-card"><div class="radio-heading"><span class="radio-onair"><i></i><span data-copy="radioTag"></span></span><strong data-copy="radioFrequency"></strong></div><img src="/img/radio-spectrum.jpg" alt="荧绿色的抽象电台声波" class="radio-spectrum"><div class="radio-lower"><p data-copy="radioQuote"></p><span data-copy="radioGenres"></span></div></div><a class="secret-preview" href="#secret"><img src="/img/moonflower-letter.jpg" alt="月亮和白色花朵的拼贴插画"><span class="secret-preview-copy"><strong data-copy="secretCardTitle"></strong><small data-copy="secretCardIntro"></small></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></aside>
         <div class="hero-index" data-copy="heroIndex"></div>
       </section>
-      <section class="front-feed wrap" id="writing"><section class="featured-column"><div class="feed-heading"><div class="section-label"><span data-copy="writingIndex"></span><span data-copy="writingLabel"></span></div><span class="feed-heading-en">FEATURED ESSAY</span></div><article class="featured-essay"><a class="featured-image" href="/archives/"><img src="/img/essay-workstation.jpg" alt="黑猫与夜间数字花园工作台"></a><div class="featured-copy"><div class="featured-meta"><span data-copy="writingDateTag"></span><small data-copy="articleDate"></small></div><h2 data-copy="articleTitle"></h2><p data-copy="articleText"></p><a class="text-link" href="/archives/"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a></div></article></section><aside class="recent-column"><div class="feed-heading"><div class="section-label"><span data-copy="recentIndex"></span><span data-copy="recentLabel"></span></div><a class="recent-view-all" href="#projects"><span data-copy="recentMore"></span><i class="fa-solid fa-arrow-right"></i></a></div><div class="recent-list"><a class="recent-item" data-url="tombUrl" target="_blank" rel="noopener"><img src="/img/knowledge-tomb.jpg" alt="知识冢项目封面"><span class="recent-copy"><small data-copy="projectKind"></small><strong data-copy="tombTitle"></strong><span data-copy="tombText"></span></span><i class="fa-solid fa-chevron-right"></i></a><a class="recent-item" data-url="examUrl" target="_blank" rel="noopener"><img src="/img/essay-workstation.jpg" alt="夜间工作的数字花园插画"><span class="recent-copy"><small data-copy="examKind"></small><strong data-copy="examTitle"></strong><span data-copy="examText"></span></span><i class="fa-solid fa-chevron-right"></i></a><a class="recent-item" data-url="labUrl" target="_blank" rel="noopener"><img src="/img/hacker-rooftop.png" alt="红色霓虹夜城中的少女黑客"><span class="recent-copy"><small data-copy="labKind"></small><strong data-copy="labTitle"></strong><span data-copy="labText"></span></span><i class="fa-solid fa-chevron-right"></i></a></div></aside></section>
+      <section class="front-feed wrap" id="writing"><section class="featured-column"><div class="feed-heading"><div class="section-label"><span data-copy="writingIndex"></span><span data-copy="writingLabel"></span></div><span class="feed-heading-en">FEATURED ESSAY</span></div><article class="featured-essay"><a class="featured-image" id="featured-article-link" href="/archives/"><img id="featured-article-cover" src="/img/essay-workstation.jpg" alt="精选文章封面"></a><div class="featured-copy"><div class="featured-meta"><span data-copy="writingDateTag"></span><small id="featured-article-date" data-copy="articleDate"></small></div><h2 id="featured-article-title" data-copy="articleTitle"></h2><p id="featured-article-summary" data-copy="articleText"></p><a class="text-link" id="featured-article-read" href="/archives/"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a></div></article></section><aside class="recent-column"><div class="feed-heading"><div class="section-label"><span data-copy="recentIndex"></span><span data-copy="recentLabel"></span></div><a class="recent-view-all" href="/archives/"><span data-copy="recentMore"></span><i class="fa-solid fa-arrow-right"></i></a></div><div class="recent-list" id="recent-articles"><a class="recent-item" data-url="tombUrl" target="_blank" rel="noopener"><img src="/img/knowledge-tomb.jpg" alt="知识冢项目封面"><span class="recent-copy"><small data-copy="projectKind"></small><strong data-copy="tombTitle"></strong><span data-copy="tombText"></span></span><i class="fa-solid fa-chevron-right"></i></a></div></aside></section>
+      <section class="telemetry-panel wrap" aria-labelledby="telemetry-title"><div class="telemetry-heading"><div><span class="telemetry-kicker">SITE TELEMETRY · PUBLIC COUNTER</span><h2 id="telemetry-title">数字花园 · 访问记录</h2></div><span class="telemetry-live"><i></i> BZ · SITEWIDE COUNTER</span></div><div class="telemetry-grid"><div class="telemetry-cell"><span>ESTABLISHED · 建站日期</span><strong data-copy="siteSince">2026.04.02</strong></div><div class="telemetry-cell"><span>UNIQUE VISITORS · UV 访客计数</span><strong id="busuanzi_value_site_uv">统计中</strong></div><div class="telemetry-cell"><span>PAGE VIEWS · PV 浏览量</span><strong id="busuanzi_value_site_pv">统计中</strong></div><div class="telemetry-cell telemetry-method"><span>统计口径</span><p>第三方不蒜子全站计数：UV 按日去重后累加，并非可识别的独立个人数；PV 每次页面浏览累加。数据可能延迟或受拦截影响，不代表实时在线人数或精确访问日志。</p></div></div></section>
       <div class="ticker" aria-label="滚动标语"><div><span data-copy="tickerOne"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerTwo"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerThree"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerOne"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerTwo"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerThree"></span></div></div>
       <section class="section wrap about-section" id="about"><div class="section-label"><span data-copy="aboutIndex"></span><span data-copy="aboutLabel"></span></div><div class="about-grid"><h2 data-copy="aboutTitle"></h2><div><p class="about-text" data-copy="aboutText"></p><div class="terminal-line"><span data-copy="terminalUser"></span>:~$ <span class="terminal-output" data-copy="terminalText"></span><i class="fa-solid fa-square terminal-cursor" aria-hidden="true"></i></div></div></div></section>
       <section class="section wrap" id="projects"><div class="section-label"><span data-copy="projectIndex"></span><span data-copy="projectLabel"></span></div><div class="section-heading"><h2 data-copy="projectHeading"></h2><p data-copy="projectLead"></p></div><article class="project-card"><div class="project-visual"><img src="/img/knowledge-tomb.jpg" alt="知识冢项目封面：红色灯光照亮的地下档案馆"></div><div class="project-detail"><span class="project-kicker"><i class="fa-solid fa-circle"></i> <span data-copy="projectKind"></span></span><h3 data-copy="tombTitle"></h3><p data-copy="tombText"></p><div class="project-links"><a class="button button-red" data-url="tombUrl" target="_blank" rel="noopener"><span data-copy="tombCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a><a class="text-link" data-url="tombRepoUrl" target="_blank" rel="noopener"><span data-copy="tombRepoCta"></span><i class="fa-brands fa-github"></i></a></div></div><span class="project-number">01</span></article><div class="project-mini-grid"><a class="project-mini" data-url="examUrl" target="_blank" rel="noopener"><span class="mini-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="mini-kind" data-copy="examKind"></span><strong data-copy="examTitle"></strong><p data-copy="examText"></p><span class="mini-link"><span data-copy="examCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a><a class="project-mini" data-url="labUrl" target="_blank" rel="noopener"><span class="mini-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="mini-kind" data-copy="labKind"></span><strong data-copy="labTitle"></strong><p data-copy="labText"></p><span class="mini-link"><span data-copy="labCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a></div></section>
       <section class="section wrap friends-section" id="friends"><div class="section-label"><span data-copy="friendsIndex"></span><span data-copy="friendsLabel"></span></div><div class="section-heading"><h2 data-copy="friendHeading"></h2><p data-copy="friendLead"></p></div><div class="friend-grid" id="friend-grid"></div><button type="button" class="button button-quiet friend-manage-open" id="friend-manage-open"><i class="fa-solid fa-pen-to-square"></i> 管理友链</button></section>
       <section class="secret-section wrap" id="secret"><div class="secret-copy"><span class="section-label-inline" data-copy="secretLabel"></span><p data-copy="secretHint"></p></div><div class="star-lock" aria-label="点亮三颗星解锁隐藏来信"><button class="star" aria-label="点亮第一颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第二颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第三颗星"><i class="fa-solid fa-star"></i></button><span class="star-status">0 / 3</span></div></section>
     </main>
-    <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span><div class="site-stats"><span>EST. <b data-copy="siteSince"></b></span><span>访客 <b id="busuanzi_value_site_uv">统计中</b></span><span>访问量 <b id="busuanzi_value_site_pv">统计中</b></span></div></footer>
+    <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span></footer>
     <span class="cursor-prompt" id="cursor-prompt" aria-hidden="true"><i class="fa-solid fa-sparkles"></i></span>
     <dialog class="edit-dialog" id="edit-dialog"><form method="dialog" class="edit-shell"><header class="edit-header"><div><span>PERSONAL CONTROL PANEL</span><h2>自定义你的数字花园</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">更改和图片保存在当前浏览器，只影响这台设备。若要让所有访客看到修改，请导出配置后同步更新仓库内容并发布。</p><div class="edit-fields" id="edit-fields"></div><div class="upload-field"><label for="hero-upload">替换当前轮播图 <small>PNG / JPG / WebP，建议小于 2 MB；只保存在本浏览器并记住当前页序</small></label><input id="hero-upload" type="file" accept="image/png,image/jpeg,image/webp"></div><footer class="edit-footer"><button type="button" class="button button-quiet" id="reset-config">恢复默认</button><span></span><button type="button" class="button button-quiet" id="export-config">导出配置</button><button type="submit" class="button button-red" id="save-config">保存修改</button></footer></form></dialog>
     <dialog class="letter-dialog" id="letter-dialog"><div class="letter-paper"><button class="icon-button letter-close" id="letter-close" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button><span class="letter-stamp" data-copy="letterStamp"></span><h2 data-copy="secretTitle"></h2><p data-copy="secretText"></p><a class="button button-red secret-link" data-url="secretUrl" target="_blank" rel="noopener"><span data-copy="secretCta"></span></a></div></dialog>
@@ -120,8 +121,6 @@
       const value = config[el.dataset.copy]
       if (value !== undefined) el.textContent = value
     })
-    const dateLabel = document.querySelector('.site-stats [data-copy="siteSince"]')
-    if (dateLabel) dateLabel.textContent = String(config.siteSince || '').replace(/-/g, '.')
     document.querySelectorAll('[data-url]').forEach(el => { el.href = safeUrl(config[el.dataset.url] || '#') })
     document.title = `${config.siteName} — 数字花园`
   }
@@ -250,16 +249,69 @@
   document.getElementById('year').textContent = new Date().getFullYear()
 
   addBusuanzi()
-  try {
-    const articles = JSON.parse(localStorage.getItem('krrb-archive-v1') || '[]')
-    const latest = articles.filter(article => article.status === 'published').sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0]
-    if (latest) {
-      document.querySelector('.featured-copy h2').textContent = latest.title
-      document.querySelector('.featured-copy p').textContent = latest.summary || latest.title
-      document.querySelector('.featured-meta small').textContent = latest.category || '随笔'
-      document.querySelectorAll('.featured-image, .featured-copy .text-link').forEach(link => { link.href = `/archives/?article=${encodeURIComponent(latest.id)}` })
-    }
-  } catch (_) { /* the built-in static featured essay remains visible */ }
+  const statsPoll = setInterval(() => {
+    const uv = document.getElementById('busuanzi_value_site_uv')?.textContent.trim()
+    const pv = document.getElementById('busuanzi_value_site_pv')?.textContent.trim()
+    if (uv && pv && uv !== '统计中' && pv !== '统计中') clearInterval(statsPoll)
+  }, 500)
+  setTimeout(() => {
+    clearInterval(statsPoll)
+    ;['busuanzi_value_site_uv', 'busuanzi_value_site_pv'].forEach(id => {
+      const counter = document.getElementById(id)
+      if (counter?.textContent.trim() === '统计中') counter.textContent = '暂不可用'
+    })
+  }, 12000)
+  const renderHomeArticles = articles => {
+    const published = articles.filter(article => article && article.status === 'published' && typeof article.id === 'string' && typeof article.title === 'string').sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))
+    const latest = published[0]
+    if (!latest) return
+    const readUrl = article => `/archives/?read=${encodeURIComponent(article.id)}`
+    const featuredUrl = readUrl(latest)
+    document.getElementById('featured-article-title').textContent = latest.title
+    document.getElementById('featured-article-summary').textContent = latest.summary || latest.title
+    document.getElementById('featured-article-date').textContent = `${latest.category || '随笔'} · ${latest.date || ''}`
+    document.getElementById('featured-article-link').href = featuredUrl
+    document.getElementById('featured-article-read').href = featuredUrl
+    const cover = document.getElementById('featured-article-cover')
+    if (typeof latest.cover === 'string' && /^(https?:\/\/|\/)/i.test(latest.cover)) cover.src = latest.cover
+    const recent = document.getElementById('recent-articles')
+    recent.replaceChildren()
+    published.slice(0, 4).forEach(article => {
+      const link = document.createElement('a')
+      link.className = 'recent-item'
+      link.href = readUrl(article)
+      const image = document.createElement('img')
+      image.src = typeof article.cover === 'string' && /^(https?:\/\/|\/)/i.test(article.cover) ? article.cover : '/img/essay-workstation.jpg'
+      image.alt = `${article.title} 封面`
+      const copy = document.createElement('span')
+      copy.className = 'recent-copy'
+      const meta = document.createElement('small')
+      meta.textContent = `${article.category || '随笔'} · ${article.date || ''}`
+      const title = document.createElement('strong')
+      title.textContent = article.title
+      const summary = document.createElement('span')
+      summary.textContent = article.summary || ''
+      const arrow = document.createElement('i')
+      arrow.className = 'fa-solid fa-chevron-right'
+      copy.append(meta, title, summary)
+      link.append(image, copy, arrow)
+      recent.appendChild(link)
+    })
+  }
+  const refreshHomeArticles = async () => {
+    let published = []
+    try {
+      const response = await fetch('/data/articles.json', { cache: 'no-store' })
+      if (response.ok) published = await response.json()
+    } catch (_) { /* offline fallback to local published work */ }
+    try {
+      const local = JSON.parse(localStorage.getItem('krrb-archive-v1') || '[]')
+      const merged = new Map(published.filter(post => post?.id).map(post => [post.id, post]))
+      local.filter(post => post?.id && post.status === 'published').forEach(post => merged.set(post.id, post))
+      renderHomeArticles([...merged.values()])
+    } catch (_) { renderHomeArticles(published) }
+  }
+  refreshHomeArticles()
 
   const editDialog = document.getElementById('edit-dialog')
   document.getElementById('edit-open').addEventListener('click', () => editDialog.showModal())

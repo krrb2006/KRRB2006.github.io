@@ -35,7 +35,7 @@ body.cyber-home ::selection { color: #fff; background: #c41237; }
 .wrap { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
 .cyber-nav { height: 76px; padding-inline: max(32px, calc((100vw - 1180px)/2)); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--ink) 93%, transparent); position: sticky; top: 0; z-index: 15; backdrop-filter: blur(18px); }
 .brand { color: var(--paper); font-family: var(--cute); font-size: 22px; white-space: nowrap; letter-spacing: .08em; }
-.brand-mark { color: var(--red); font-size: 16px; margin-left: 1px; }
+.brand-mark { display: block; width: 34px; height: 34px; margin-left: 1px; filter: drop-shadow(0 0 10px rgba(255, 51, 78, .32)); }
 .cyber-nav nav { display: flex; gap: clamp(16px, 3vw, 42px); align-items: center; margin: 0 auto; }
 .cyber-nav nav a { font-family: var(--cute); font-size: 15px; color: var(--muted); transition: color .2s; }
 .cyber-nav nav a:hover, .cyber-nav nav a:focus-visible { color: var(--red); }
@@ -143,6 +143,20 @@ body.cyber-home ::selection { color: #fff; background: #c41237; }
 .recent-copy > span { display: -webkit-box; overflow: hidden; color: var(--muted); font-size: 9px; line-height: 1.55; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .recent-item > i { color: var(--muted); font-size: 9px; transition: transform .2s, color .2s; }
 .recent-item:hover > i { color: var(--red); transform: translateX(3px); }
+.telemetry-panel { position: relative; overflow: hidden; margin-top: 36px; padding: 22px 25px 19px; border: 1px solid var(--line); background: linear-gradient(110deg, rgba(255, 51, 78, .075), transparent 42%), rgba(17, 14, 17, .72); }
+.telemetry-panel::after { position: absolute; top: -64px; right: -35px; width: 210px; height: 210px; border: 1px solid rgba(255, 51, 78, .13); border-radius: 50%; box-shadow: 0 0 0 20px rgba(255, 51, 78, .025), 0 0 0 42px rgba(255, 51, 78, .02); content: ''; pointer-events: none; }
+.telemetry-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+.telemetry-kicker { color: var(--red); font: 8px var(--mono); letter-spacing: .16em; }
+.telemetry-heading h2 { margin: 6px 0 0; color: var(--paper); font: 19px var(--cute); }
+.telemetry-live { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font: 8px var(--mono); letter-spacing: .12em; }
+.telemetry-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 9px var(--lime); }
+.telemetry-grid { display: grid; grid-template-columns: .85fr 1fr 1fr 1.9fr; }
+.telemetry-cell { min-width: 0; padding: 18px 19px 4px 0; }
+.telemetry-cell + .telemetry-cell { padding-left: 19px; border-left: 1px solid var(--line); }
+.telemetry-cell > span { display: block; color: var(--muted); font: 8px/1.6 var(--mono); letter-spacing: .08em; }
+.telemetry-cell > strong { display: block; margin-top: 9px; color: var(--paper); font: 23px var(--cute); }
+.telemetry-cell:first-child > strong { color: var(--red); }
+.telemetry-method p { margin: 7px 0 0; color: var(--muted); font-size: 9px; line-height: 1.75; }
 .ticker { overflow: hidden; border-block: 1px solid var(--line); color: var(--red); background: color-mix(in srgb, var(--card) 80%, var(--ink)); }
 .ticker > div { width: max-content; padding-block: 12px; display: flex; align-items: center; gap: 36px; animation: ticker-scroll 35s linear infinite; font: 10px var(--mono); letter-spacing: .18em; }
 .ticker i { color: var(--pink); font-style: normal; font-size: 14px; }
@@ -249,6 +263,13 @@ dialog::backdrop { background: #070508bd; backdrop-filter: blur(7px); }
 .reveal.is-visible { opacity: 1; transform: none; }
 :root[data-home-theme='light'] .hero-slide { filter: saturate(.95) contrast(.98) brightness(.78); }
 @media (max-width: 760px) {
+  .telemetry-panel { margin-top: 27px; padding: 17px; }
+  .telemetry-grid { grid-template-columns: 1fr 1fr; }
+  .telemetry-cell { padding: 14px 12px 9px 0; }
+  .telemetry-cell + .telemetry-cell { padding-left: 12px; }
+  .telemetry-cell:nth-child(3) { padding-left: 0; border-left: 0; }
+  .telemetry-cell:nth-child(4) { border-left: 1px solid var(--line); }
+  .telemetry-method p { font-size: 8px; }
   .wrap { width: calc(100% - 36px); }
   .cyber-nav { height: 64px; padding-inline: 18px; gap: 8px; }
   .brand { font-size: 18px; }
