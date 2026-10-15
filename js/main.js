@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (location.pathname === '/' || location.pathname === '/index.html') {
     const stylesheet = document.createElement('link')
     stylesheet.rel = 'stylesheet'
-    stylesheet.href = '/css/hacker-home.css?v=5'
+    stylesheet.href = '/css/hacker-home.css?v=7'
     document.head.appendChild(stylesheet)
 
     const homepage = document.createElement('script')
-    homepage.src = '/js/hacker-home.js?v=5'
+    homepage.src = '/js/hacker-home.js?v=7'
     homepage.defer = true
     document.head.appendChild(homepage)
     return

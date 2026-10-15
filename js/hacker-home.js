@@ -1,12 +1,15 @@
 (() => {
   const STORAGE_KEY = 'krrb-hacker-home-v1'
   const defaults = {
-    siteName: '一如既往',
+    siteName: '一如既往', brandLine: 'SAME AS ALWAYS.',
     navHome: '首页', navWriting: '文章', navProjects: '项目', navFriends: '友链', navAbout: '关于', statusTag: 'ONLINE',
     eyebrow: 'A GIRL · A KEYBOARD · A MORE INTERESTING UNIVERSE', artStamp: 'NO. 01\nGIRL IN THE SYSTEM',
-    slide1Title: '数字花园 · 原始封面', slide2Title: '霓虹天台 · 夜行者', slide3Title: '知识冢 · 深处的档案', slide4Title: '赤色竞技场 · 群像与热爱',
+    slide1Title: '数字花园 · 原始封面', slide2Title: '霓虹天台 · 夜行者', slide3Title: '知识冢 · 深处的档案', slide4Title: '赤色竞技场 · 群像与热爱', heroIndex: 'A GIRL · A KEYBOARD\nA MORE INTERESTING UNIVERSE · VOL. 1',
+    radioTag: 'ON AIR', radioFrequency: '102.4 FM', radioQuote: '“在代码的电波里，总有另一个我在回应。”', radioGenres: '/ LITERATURE\n/ CODE\n/ CINEMA\n/ DAILY LIFE\n/ ANOTHER UNIVERSE',
+    secretCardTitle: '一封来自另一个宇宙的信', secretCardIntro: '去另一个平行宇宙，看看我的另一种可能。',
+    recentIndex: 'RECENT UPDATES', recentLabel: '最近更新', recentMore: '查看全部项目',
     tickerOne: 'THINK DEEPER', tickerTwo: 'BUILD COOLER THINGS', tickerThree: 'LIVE A SOFTER LIFE',
-    title: '你好，欢迎来到\n我的数字花园',
+    title: '你好，\n欢迎来到我的数字花园',
     intro: '在代码与日常之间，记录思考、收集喜欢，也种下一些柔软而坚定的东西。',
     signature: 'Still here. Still planting.',
     aboutIndex: '01 / ABOUT', aboutLabel: '个人档案', aboutTitle: '关于这颗星球', terminalUser: 'krrb@universe', terminalText: 'whoami — just a girl, planting ideas in a chaotic world.',
@@ -22,7 +25,7 @@
     labTitle: 'LLM 辅助 Web 漏洞挖掘',
     labText: '网络安全课程协作实验，围绕 SQL 注入与 XSS 的提示词迭代和误漏报分析；目前仍在项目初始化阶段。',
     labKind: 'SECURITY RESEARCH · IN PROGRESS', labCta: '查看实验仓库', labUrl: 'https://github.com/krrb2006/llm-web-vuln-lab',
-    writingIndex: '03 / FIELD NOTES', writingLabel: '最近的文字', writingDateTag: 'FIELD NOTE',
+    writingIndex: '03 / FIELD NOTES', writingLabel: '精选文章', writingDateTag: 'FIELD NOTE',
     articleTitle: '在世界的系统里，继续种花',
     articleText: '记录那些还没来得及说出口的念头，以及认真生活的微小证据。',
     articleDate: '随笔 · 慢慢更新', articleCta: '浏览文章档案', archiveCta: '进入完整档案 / ARCHIVE',
@@ -39,8 +42,9 @@
     secretCta: '打开那封信 ↗', secretUrl: 'https://github.com/krrb2006/cruel.github.io'
   }
   const editFields = [
-    ['siteName', '网站名称'], ['navHome', '导航：主页'], ['navWriting', '导航：文章'], ['navProjects', '导航：项目'], ['navFriends', '导航：友链'], ['navAbout', '导航：关于'], ['statusTag', '状态文字'],
-    ['eyebrow', '标题上方英文小字'], ['artStamp', '头图角标（换行用回车）'], ['slide1Title', '轮播图标题 1'], ['slide2Title', '轮播图标题 2'], ['slide3Title', '轮播图标题 3'], ['slide4Title', '轮播图标题 4'], ['title', '主页大标题（换行用回车）'], ['intro', '主页介绍'], ['signature', '个性签名'],
+    ['siteName', '网站名称'], ['brandLine', '品牌小字'], ['navHome', '导航：主页'], ['navWriting', '导航：文章'], ['navProjects', '导航：项目'], ['navFriends', '导航：友链'], ['navAbout', '导航：关于'], ['statusTag', '状态文字'],
+    ['eyebrow', '标题上方英文小字'], ['heroIndex', '右侧英文签名（换行用回车）'], ['artStamp', '头图角标（换行用回车）'], ['slide1Title', '轮播图标题 1'], ['slide2Title', '轮播图标题 2'], ['slide3Title', '轮播图标题 3'], ['slide4Title', '轮播图标题 4'], ['title', '主页大标题（换行用回车）'], ['intro', '主页介绍'], ['signature', '个性签名'],
+    ['radioTag', '电台状态文字'], ['radioFrequency', '电台频率文字'], ['radioQuote', '电台引用'], ['radioGenres', '兴趣清单（换行分隔）'], ['secretCardTitle', '来信卡片标题'], ['secretCardIntro', '来信卡片说明'], ['recentIndex', '最近更新英文小字'], ['recentLabel', '最近更新标题'], ['recentMore', '项目入口文字'],
     ['tickerOne', '滚动标语 1'], ['tickerTwo', '滚动标语 2'], ['tickerThree', '滚动标语 3'],
     ['aboutIndex', '关于区编号'], ['aboutLabel', '关于区中文标签'], ['aboutTitle', '关于标题'], ['aboutText', '关于介绍'], ['terminalUser', '终端用户名'], ['terminalText', '终端简介'],
     ['projectIndex', '项目区编号'], ['projectLabel', '项目区中文标签'], ['projectHeading', '项目区标题'], ['projectLead', '项目区介绍'], ['projectKind', '项目类型标签'],
@@ -64,12 +68,12 @@
   document.documentElement.dataset.homeTheme = localStorage.getItem(`${STORAGE_KEY}-theme`) || 'dark'
   document.documentElement.dataset.theme = document.documentElement.dataset.homeTheme
   document.body.innerHTML = `
-    <header class="cyber-nav"><a class="brand" href="#top" data-copy="siteName"></a><span class="brand-mark"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span>
+    <header class="cyber-nav"><div class="brand-lockup"><a class="brand" href="#top" data-copy="siteName"></a><span class="brand-mark"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span><small data-copy="brandLine"></small></div>
       <nav aria-label="主导航"><a href="#top" data-copy="navHome"></a><a href="#writing" data-copy="navWriting"></a><a href="#projects" data-copy="navProjects"></a><a href="#friends" data-copy="navFriends"></a><a href="#about" data-copy="navAbout"></a></nav>
       <div class="nav-actions"><span class="live-indicator"><i></i> <span data-copy="statusTag"></span></span><button class="icon-button" id="theme-toggle" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-moon"></i></button><button class="icon-button" id="edit-open" aria-label="自定义主页" title="自定义主页"><i class="fa-solid fa-sliders"></i></button></div>
     </header>
     <main id="top">
-      <section class="hero wrap">
+      <section class="hero home-hero">
         <div class="hero-art" aria-label="灵感主题图片轮播">
           <img class="hero-slide is-active" src="/img/hacker-garden.jpg" alt="红色霓虹数字花园中的少女黑客" data-credit-name="主页原始插画">
           <img class="hero-slide" src="/img/hacker-rooftop.png" alt="樱花与霓虹城市中的少女黑客" data-credit-name="原创 AI 氛围插画">
@@ -79,19 +83,20 @@
           <div class="hero-slide-caption"><span class="slide-count">01 / 04</span><strong data-copy="slide1Title"></strong><span class="slide-credit">主页原始插画</span></div>
           <div class="hero-controls"><button class="slide-arrow" id="slide-prev" aria-label="上一张"><i class="fa-solid fa-arrow-left"></i></button><div class="slide-dots" role="tablist" aria-label="选择主题图片"><button class="slide-dot is-active" aria-label="第 1 张图片" aria-selected="true"></button><button class="slide-dot" aria-label="第 2 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 3 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 4 张图片" aria-selected="false"></button></div><button class="slide-arrow" id="slide-next" aria-label="下一张"><i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="hero-copy"><p class="eyebrow" data-copy="eyebrow"></p><h1 data-copy="title"></h1><div class="red-rule"></div><p class="hero-intro" data-copy="intro"></p><div class="hero-bottom"><a class="button button-red" href="#writing"><span data-copy="navWriting"></span><i class="fa-solid fa-arrow-right"></i></a><span class="signature" data-copy="signature"></span></div></div>
-        <div class="hero-index">INDEX NO. 001<br>STILL HERE<br><span>STILL PLANTING</span></div>
+        <div class="hero-copy"><p class="eyebrow" data-copy="eyebrow"></p><h1 data-copy="title"></h1><div class="red-rule"></div><p class="hero-intro" data-copy="intro"></p><div class="hero-bottom"><a class="button button-red" href="#writing"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a><a class="hero-about-link" href="#about"><span data-copy="navAbout"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+        <aside class="hero-rail" aria-label="电台和隐藏来信"><div class="radio-card"><div class="radio-heading"><span class="radio-onair"><i></i><span data-copy="radioTag"></span></span><strong data-copy="radioFrequency"></strong></div><img src="/img/radio-spectrum.jpg" alt="荧绿色的抽象电台声波" class="radio-spectrum"><div class="radio-lower"><p data-copy="radioQuote"></p><span data-copy="radioGenres"></span></div></div><a class="secret-preview" href="#secret"><img src="/img/moonflower-letter.jpg" alt="月亮和白色花朵的拼贴插画"><span class="secret-preview-copy"><strong data-copy="secretCardTitle"></strong><small data-copy="secretCardIntro"></small></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></aside>
+        <div class="hero-index" data-copy="heroIndex"></div>
       </section>
+      <section class="front-feed wrap" id="writing"><section class="featured-column"><div class="feed-heading"><div class="section-label"><span data-copy="writingIndex"></span><span data-copy="writingLabel"></span></div><span class="feed-heading-en">FEATURED ESSAY</span></div><article class="featured-essay"><a class="featured-image" href="/archives/"><img src="/img/essay-workstation.jpg" alt="黑猫与夜间数字花园工作台"></a><div class="featured-copy"><div class="featured-meta"><span data-copy="writingDateTag"></span><small data-copy="articleDate"></small></div><h2 data-copy="articleTitle"></h2><p data-copy="articleText"></p><a class="text-link" href="/archives/"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a></div></article></section><aside class="recent-column"><div class="feed-heading"><div class="section-label"><span data-copy="recentIndex"></span><span data-copy="recentLabel"></span></div><a class="recent-view-all" href="#projects"><span data-copy="recentMore"></span><i class="fa-solid fa-arrow-right"></i></a></div><div class="recent-list"><a class="recent-item" data-url="tombUrl" target="_blank" rel="noopener"><img src="/img/knowledge-tomb.jpg" alt="知识冢项目封面"><span class="recent-copy"><small data-copy="projectKind"></small><strong data-copy="tombTitle"></strong><span data-copy="tombText"></span></span><i class="fa-solid fa-chevron-right"></i></a><a class="recent-item" data-url="examUrl" target="_blank" rel="noopener"><img src="/img/essay-workstation.jpg" alt="夜间工作的数字花园插画"><span class="recent-copy"><small data-copy="examKind"></small><strong data-copy="examTitle"></strong><span data-copy="examText"></span></span><i class="fa-solid fa-chevron-right"></i></a><a class="recent-item" data-url="labUrl" target="_blank" rel="noopener"><img src="/img/hacker-rooftop.png" alt="红色霓虹夜城中的少女黑客"><span class="recent-copy"><small data-copy="labKind"></small><strong data-copy="labTitle"></strong><span data-copy="labText"></span></span><i class="fa-solid fa-chevron-right"></i></a></div></aside></section>
       <div class="ticker" aria-label="滚动标语"><div><span data-copy="tickerOne"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerTwo"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerThree"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerOne"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerTwo"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerThree"></span></div></div>
       <section class="section wrap about-section" id="about"><div class="section-label"><span data-copy="aboutIndex"></span><span data-copy="aboutLabel"></span></div><div class="about-grid"><h2 data-copy="aboutTitle"></h2><div><p class="about-text" data-copy="aboutText"></p><div class="terminal-line"><span data-copy="terminalUser"></span>:~$ <span class="terminal-output" data-copy="terminalText"></span><i class="fa-solid fa-square terminal-cursor" aria-hidden="true"></i></div></div></div></section>
       <section class="section wrap" id="projects"><div class="section-label"><span data-copy="projectIndex"></span><span data-copy="projectLabel"></span></div><div class="section-heading"><h2 data-copy="projectHeading"></h2><p data-copy="projectLead"></p></div><article class="project-card"><div class="project-visual"><img src="/img/knowledge-tomb.jpg" alt="知识冢项目封面：红色灯光照亮的地下档案馆"></div><div class="project-detail"><span class="project-kicker"><i class="fa-solid fa-circle"></i> <span data-copy="projectKind"></span></span><h3 data-copy="tombTitle"></h3><p data-copy="tombText"></p><div class="project-links"><a class="button button-red" data-url="tombUrl" target="_blank" rel="noopener"><span data-copy="tombCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a><a class="text-link" data-url="tombRepoUrl" target="_blank" rel="noopener"><span data-copy="tombRepoCta"></span><i class="fa-brands fa-github"></i></a></div></div><span class="project-number">01</span></article><div class="project-mini-grid"><a class="project-mini" data-url="examUrl" target="_blank" rel="noopener"><span class="mini-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="mini-kind" data-copy="examKind"></span><strong data-copy="examTitle"></strong><p data-copy="examText"></p><span class="mini-link"><span data-copy="examCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a><a class="project-mini" data-url="labUrl" target="_blank" rel="noopener"><span class="mini-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="mini-kind" data-copy="labKind"></span><strong data-copy="labTitle"></strong><p data-copy="labText"></p><span class="mini-link"><span data-copy="labCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a></div></section>
-      <section class="section wrap writing-section" id="writing"><div class="section-label"><span data-copy="writingIndex"></span><span data-copy="writingLabel"></span></div><div class="writing-card"><div class="writing-date"><span data-copy="writingDateTag"></span><strong><i class="fa-solid fa-sparkles" aria-hidden="true"></i></strong><small data-copy="articleDate"></small></div><div class="writing-copy"><h2 data-copy="articleTitle"></h2><p data-copy="articleText"></p><a class="text-link" href="/archives/"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a></div><span class="writing-index">01—∞</span></div><a class="archive-link" href="/archives/"><span data-copy="archiveCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></section>
       <section class="section wrap friends-section" id="friends"><div class="section-label"><span data-copy="friendsIndex"></span><span data-copy="friendsLabel"></span></div><div class="section-heading"><h2 data-copy="friendHeading"></h2><p data-copy="friendLead"></p></div><div class="friend-grid">
         <a class="friend-card" data-url="friend1Url" target="_blank" rel="noopener"><span class="friend-no">LINK 001</span><span class="friend-icon"><i class="fa-solid fa-satellite-dish"></i></span><strong data-copy="friend1Name"></strong><small data-copy="friend1Text"></small><i class="fa-solid fa-arrow-up-right-from-square friend-arrow"></i></a>
         <a class="friend-card" data-url="friend2Url" target="_blank" rel="noopener"><span class="friend-no">LINK 002</span><span class="friend-icon"><i class="fa-solid fa-meteor"></i></span><strong data-copy="friend2Name"></strong><small data-copy="friend2Text"></small><i class="fa-solid fa-arrow-up-right-from-square friend-arrow"></i></a>
         <a class="friend-card" data-url="friend3Url" target="_blank" rel="noopener"><span class="friend-no">LINK 003</span><span class="friend-icon"><i class="fa-solid fa-moon"></i></span><strong data-copy="friend3Name"></strong><small data-copy="friend3Text"></small><i class="fa-solid fa-arrow-up-right-from-square friend-arrow"></i></a>
       </div></section>
-      <section class="secret-section wrap"><div class="secret-copy"><span class="section-label-inline" data-copy="secretLabel"></span><p data-copy="secretHint"></p></div><div class="star-lock" aria-label="点亮三颗星解锁隐藏来信"><button class="star" aria-label="点亮第一颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第二颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第三颗星"><i class="fa-solid fa-star"></i></button><span class="star-status">0 / 3</span></div></section>
+      <section class="secret-section wrap" id="secret"><div class="secret-copy"><span class="section-label-inline" data-copy="secretLabel"></span><p data-copy="secretHint"></p></div><div class="star-lock" aria-label="点亮三颗星解锁隐藏来信"><button class="star" aria-label="点亮第一颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第二颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第三颗星"><i class="fa-solid fa-star"></i></button><span class="star-status">0 / 3</span></div></section>
     </main>
     <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span></footer>
     <span class="cursor-prompt" id="cursor-prompt" aria-hidden="true"><i class="fa-solid fa-sparkles"></i></span>
@@ -213,16 +218,16 @@
   document.getElementById('slide-prev').addEventListener('click', () => showSlide(activeSlide - 1))
   document.getElementById('slide-next').addEventListener('click', () => showSlide(activeSlide + 1))
   slideDots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)))
-  const heroArt = document.querySelector('.hero-art')
+  const heroControls = document.querySelector('.hero-controls')
   let slideTimer = setInterval(() => showSlide(activeSlide + 1), 6500)
   const stopSlideshow = () => { clearInterval(slideTimer); slideTimer = null }
   const startSlideshow = () => {
     if (!slideTimer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) slideTimer = setInterval(() => showSlide(activeSlide + 1), 6500)
   }
-  heroArt.addEventListener('mouseenter', stopSlideshow)
-  heroArt.addEventListener('mouseleave', startSlideshow)
-  heroArt.addEventListener('focusin', stopSlideshow)
-  heroArt.addEventListener('focusout', startSlideshow)
+  heroControls.addEventListener('mouseenter', stopSlideshow)
+  heroControls.addEventListener('mouseleave', startSlideshow)
+  heroControls.addEventListener('focusin', stopSlideshow)
+  heroControls.addEventListener('focusout', startSlideshow)
   document.addEventListener('visibilitychange', () => document.hidden ? stopSlideshow() : startSlideshow())
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) stopSlideshow()
   showSlide(activeSlide)
