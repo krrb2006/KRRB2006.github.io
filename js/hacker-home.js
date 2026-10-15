@@ -1,7 +1,7 @@
 (() => {
   const STORAGE_KEY = 'krrb-hacker-home-v1'
   const defaults = {
-    siteName: '一如既往', brandLine: 'SAME AS ALWAYS.',
+    siteName: '一如既往', brandLine: 'SAME AS ALWAYS.', siteSince: '2026-04-02',
     navHome: '首页', navWriting: '文章', navProjects: '项目', navFriends: '友链', navAbout: '关于', statusTag: 'ONLINE',
     eyebrow: 'A GIRL · A KEYBOARD · A MORE INTERESTING UNIVERSE', artStamp: 'NO. 01\nGIRL IN THE SYSTEM',
     slide1Title: '数字花园 · 原始封面', slide2Title: '霓虹天台 · 夜行者', slide3Title: '知识冢 · 深处的档案', slide4Title: '赤色竞技场 · 群像与热爱', heroIndex: 'A GIRL · A KEYBOARD\nA MORE INTERESTING UNIVERSE · VOL. 1',
@@ -39,10 +39,10 @@
     secretHint: '如果你也喜欢这个小宇宙，点亮三颗星，收下一封来自平行宇宙的信。',
     secretTitle: '给另一个宇宙的你',
     secretText: '这里藏着另一间小小的房间。愿你每次推开门，都能遇见一个新的自己。',
-    secretCta: '打开那封信 ↗', secretUrl: 'https://github.com/krrb2006/cruel.github.io'
+    secretCta: '打开那封信 ↗', secretUrl: 'https://krrb2006.github.io/cruel.github.io/'
   }
   const editFields = [
-    ['siteName', '网站名称'], ['brandLine', '品牌小字'], ['navHome', '导航：主页'], ['navWriting', '导航：文章'], ['navProjects', '导航：项目'], ['navFriends', '导航：友链'], ['navAbout', '导航：关于'], ['statusTag', '状态文字'],
+    ['siteName', '网站名称'], ['brandLine', '品牌小字'], ['siteSince', '建站日期（YYYY-MM-DD）'], ['navHome', '导航：主页'], ['navWriting', '导航：文章'], ['navProjects', '导航：项目'], ['navFriends', '导航：友链'], ['navAbout', '导航：关于'], ['statusTag', '状态文字'],
     ['eyebrow', '标题上方英文小字'], ['heroIndex', '右侧英文签名（换行用回车）'], ['artStamp', '头图角标（换行用回车）'], ['slide1Title', '轮播图标题 1'], ['slide2Title', '轮播图标题 2'], ['slide3Title', '轮播图标题 3'], ['slide4Title', '轮播图标题 4'], ['title', '主页大标题（换行用回车）'], ['intro', '主页介绍'], ['signature', '个性签名'],
     ['radioTag', '电台状态文字'], ['radioFrequency', '电台频率文字'], ['radioQuote', '电台引用'], ['radioGenres', '兴趣清单（换行分隔）'], ['secretCardTitle', '来信卡片标题'], ['secretCardIntro', '来信卡片说明'], ['recentIndex', '最近更新英文小字'], ['recentLabel', '最近更新标题'], ['recentMore', '项目入口文字'],
     ['tickerOne', '滚动标语 1'], ['tickerTwo', '滚动标语 2'], ['tickerThree', '滚动标语 3'],
@@ -53,9 +53,6 @@
     ['labTitle', '安全实验项目名称'], ['labText', '安全实验项目介绍'], ['labKind', '安全实验项目标签'], ['labCta', '安全实验链接文字'], ['labUrl', '安全实验链接地址'],
     ['writingIndex', '文章区编号'], ['writingLabel', '文章区中文标签'], ['writingDateTag', '文章卡片小标签'], ['articleTitle', '文章标题'], ['articleText', '文章摘要'], ['articleDate', '文章日期/分类'], ['articleCta', '文章按钮文字'], ['archiveCta', '档案按钮文字'],
     ['friendsIndex', '友链区编号'], ['friendsLabel', '友链区中文标签'], ['friendHeading', '友链标题'], ['friendLead', '友链介绍'],
-    ['friend1Name', '友链 1 名称'], ['friend1Text', '友链 1 介绍'], ['friend1Url', '友链 1 地址'],
-    ['friend2Name', '友链 2 名称'], ['friend2Text', '友链 2 介绍'], ['friend2Url', '友链 2 地址'],
-    ['friend3Name', '友链 3 名称'], ['friend3Text', '友链 3 介绍'], ['friend3Url', '友链 3 地址'],
     ['footerNote', '页脚文字'], ['footerCredit', '页脚英文署名'], ['secretLabel', '彩蛋标签'], ['letterStamp', '来信标签'], ['starOrderHint', '点星顺序提示'], ['starReadyText', '彩蛋解锁提示'], ['secretHint', '彩蛋提示'], ['secretTitle', '隐藏来信标题'], ['secretText', '隐藏来信内容'], ['secretCta', '隐藏来信链接文字'], ['secretUrl', '隐藏来信目标地址']
   ]
   let config = { ...defaults }
@@ -63,13 +60,14 @@
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
     config = { ...config, ...saved }
   } catch (_) { localStorage.removeItem(STORAGE_KEY) }
+  if (/^https:\/\/github\.com\/krrb2006\/cruel\.github\.io\/?$/i.test(config.secretUrl)) config.secretUrl = defaults.secretUrl
 
   document.title = `${config.siteName} — 数字花园`
   document.documentElement.dataset.homeTheme = localStorage.getItem(`${STORAGE_KEY}-theme`) || 'dark'
   document.documentElement.dataset.theme = document.documentElement.dataset.homeTheme
   document.body.innerHTML = `
     <header class="cyber-nav"><div class="brand-lockup"><a class="brand" href="#top" data-copy="siteName"></a><span class="brand-mark"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></span><small data-copy="brandLine"></small></div>
-      <nav aria-label="主导航"><a href="#top" data-copy="navHome"></a><a href="#writing" data-copy="navWriting"></a><a href="#projects" data-copy="navProjects"></a><a href="#friends" data-copy="navFriends"></a><a href="#about" data-copy="navAbout"></a></nav>
+      <nav aria-label="主导航"><a href="#top" data-copy="navHome"></a><a href="/archives/" data-copy="navWriting"></a><a href="#projects" data-copy="navProjects"></a><a href="#friends" data-copy="navFriends"></a><a href="#about" data-copy="navAbout"></a></nav>
       <div class="nav-actions"><span class="live-indicator"><i></i> <span data-copy="statusTag"></span></span><button class="icon-button" id="theme-toggle" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-moon"></i></button><button class="icon-button" id="edit-open" aria-label="自定义主页" title="自定义主页"><i class="fa-solid fa-sliders"></i></button></div>
     </header>
     <main id="top">
@@ -83,7 +81,7 @@
           <div class="hero-slide-caption"><span class="slide-count">01 / 04</span><strong data-copy="slide1Title"></strong><span class="slide-credit">主页原始插画</span></div>
           <div class="hero-controls"><button class="slide-arrow" id="slide-prev" aria-label="上一张"><i class="fa-solid fa-arrow-left"></i></button><div class="slide-dots" role="tablist" aria-label="选择主题图片"><button class="slide-dot is-active" aria-label="第 1 张图片" aria-selected="true"></button><button class="slide-dot" aria-label="第 2 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 3 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 4 张图片" aria-selected="false"></button></div><button class="slide-arrow" id="slide-next" aria-label="下一张"><i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
-        <div class="hero-copy"><p class="eyebrow" data-copy="eyebrow"></p><h1 data-copy="title"></h1><div class="red-rule"></div><p class="hero-intro" data-copy="intro"></p><div class="hero-bottom"><a class="button button-red" href="#writing"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a><a class="hero-about-link" href="#about"><span data-copy="navAbout"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
+        <div class="hero-copy"><p class="eyebrow" data-copy="eyebrow"></p><h1 data-copy="title"></h1><div class="red-rule"></div><p class="hero-intro" data-copy="intro"></p><div class="hero-bottom"><a class="button button-red" href="/archives/"><span data-copy="articleCta"></span><i class="fa-solid fa-arrow-right"></i></a><a class="hero-about-link" href="#about"><span data-copy="navAbout"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></div></div>
         <aside class="hero-rail" aria-label="电台和隐藏来信"><div class="radio-card"><div class="radio-heading"><span class="radio-onair"><i></i><span data-copy="radioTag"></span></span><strong data-copy="radioFrequency"></strong></div><img src="/img/radio-spectrum.jpg" alt="荧绿色的抽象电台声波" class="radio-spectrum"><div class="radio-lower"><p data-copy="radioQuote"></p><span data-copy="radioGenres"></span></div></div><a class="secret-preview" href="#secret"><img src="/img/moonflower-letter.jpg" alt="月亮和白色花朵的拼贴插画"><span class="secret-preview-copy"><strong data-copy="secretCardTitle"></strong><small data-copy="secretCardIntro"></small></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a></aside>
         <div class="hero-index" data-copy="heroIndex"></div>
       </section>
@@ -91,18 +89,21 @@
       <div class="ticker" aria-label="滚动标语"><div><span data-copy="tickerOne"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerTwo"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerThree"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerOne"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerTwo"></span><i class="fa-solid fa-sparkles" aria-hidden="true"></i><span data-copy="tickerThree"></span></div></div>
       <section class="section wrap about-section" id="about"><div class="section-label"><span data-copy="aboutIndex"></span><span data-copy="aboutLabel"></span></div><div class="about-grid"><h2 data-copy="aboutTitle"></h2><div><p class="about-text" data-copy="aboutText"></p><div class="terminal-line"><span data-copy="terminalUser"></span>:~$ <span class="terminal-output" data-copy="terminalText"></span><i class="fa-solid fa-square terminal-cursor" aria-hidden="true"></i></div></div></div></section>
       <section class="section wrap" id="projects"><div class="section-label"><span data-copy="projectIndex"></span><span data-copy="projectLabel"></span></div><div class="section-heading"><h2 data-copy="projectHeading"></h2><p data-copy="projectLead"></p></div><article class="project-card"><div class="project-visual"><img src="/img/knowledge-tomb.jpg" alt="知识冢项目封面：红色灯光照亮的地下档案馆"></div><div class="project-detail"><span class="project-kicker"><i class="fa-solid fa-circle"></i> <span data-copy="projectKind"></span></span><h3 data-copy="tombTitle"></h3><p data-copy="tombText"></p><div class="project-links"><a class="button button-red" data-url="tombUrl" target="_blank" rel="noopener"><span data-copy="tombCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></a><a class="text-link" data-url="tombRepoUrl" target="_blank" rel="noopener"><span data-copy="tombRepoCta"></span><i class="fa-brands fa-github"></i></a></div></div><span class="project-number">01</span></article><div class="project-mini-grid"><a class="project-mini" data-url="examUrl" target="_blank" rel="noopener"><span class="mini-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="mini-kind" data-copy="examKind"></span><strong data-copy="examTitle"></strong><p data-copy="examText"></p><span class="mini-link"><span data-copy="examCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a><a class="project-mini" data-url="labUrl" target="_blank" rel="noopener"><span class="mini-icon"><i class="fa-solid fa-shield-halved"></i></span><span class="mini-kind" data-copy="labKind"></span><strong data-copy="labTitle"></strong><p data-copy="labText"></p><span class="mini-link"><span data-copy="labCta"></span><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a></div></section>
-      <section class="section wrap friends-section" id="friends"><div class="section-label"><span data-copy="friendsIndex"></span><span data-copy="friendsLabel"></span></div><div class="section-heading"><h2 data-copy="friendHeading"></h2><p data-copy="friendLead"></p></div><div class="friend-grid">
-        <a class="friend-card" data-url="friend1Url" target="_blank" rel="noopener"><span class="friend-no">LINK 001</span><span class="friend-icon"><i class="fa-solid fa-satellite-dish"></i></span><strong data-copy="friend1Name"></strong><small data-copy="friend1Text"></small><i class="fa-solid fa-arrow-up-right-from-square friend-arrow"></i></a>
-        <a class="friend-card" data-url="friend2Url" target="_blank" rel="noopener"><span class="friend-no">LINK 002</span><span class="friend-icon"><i class="fa-solid fa-meteor"></i></span><strong data-copy="friend2Name"></strong><small data-copy="friend2Text"></small><i class="fa-solid fa-arrow-up-right-from-square friend-arrow"></i></a>
-        <a class="friend-card" data-url="friend3Url" target="_blank" rel="noopener"><span class="friend-no">LINK 003</span><span class="friend-icon"><i class="fa-solid fa-moon"></i></span><strong data-copy="friend3Name"></strong><small data-copy="friend3Text"></small><i class="fa-solid fa-arrow-up-right-from-square friend-arrow"></i></a>
-      </div></section>
+      <section class="section wrap friends-section" id="friends"><div class="section-label"><span data-copy="friendsIndex"></span><span data-copy="friendsLabel"></span></div><div class="section-heading"><h2 data-copy="friendHeading"></h2><p data-copy="friendLead"></p></div><div class="friend-grid" id="friend-grid"></div><button type="button" class="button button-quiet friend-manage-open" id="friend-manage-open"><i class="fa-solid fa-pen-to-square"></i> 管理友链</button></section>
       <section class="secret-section wrap" id="secret"><div class="secret-copy"><span class="section-label-inline" data-copy="secretLabel"></span><p data-copy="secretHint"></p></div><div class="star-lock" aria-label="点亮三颗星解锁隐藏来信"><button class="star" aria-label="点亮第一颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第二颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第三颗星"><i class="fa-solid fa-star"></i></button><span class="star-status">0 / 3</span></div></section>
     </main>
-    <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span></footer>
+    <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span><div class="site-stats"><span>EST. <b data-copy="siteSince"></b></span><span>访客 <b id="busuanzi_value_site_uv">统计中</b></span><span>访问量 <b id="busuanzi_value_site_pv">统计中</b></span></div></footer>
     <span class="cursor-prompt" id="cursor-prompt" aria-hidden="true"><i class="fa-solid fa-sparkles"></i></span>
     <dialog class="edit-dialog" id="edit-dialog"><form method="dialog" class="edit-shell"><header class="edit-header"><div><span>PERSONAL CONTROL PANEL</span><h2>自定义你的数字花园</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">更改和图片保存在当前浏览器，只影响这台设备。若要让所有访客看到修改，请导出配置后同步更新仓库内容并发布。</p><div class="edit-fields" id="edit-fields"></div><div class="upload-field"><label for="hero-upload">替换当前轮播图 <small>PNG / JPG / WebP，建议小于 2 MB；只保存在本浏览器并记住当前页序</small></label><input id="hero-upload" type="file" accept="image/png,image/jpeg,image/webp"></div><footer class="edit-footer"><button type="button" class="button button-quiet" id="reset-config">恢复默认</button><span></span><button type="button" class="button button-quiet" id="export-config">导出配置</button><button type="submit" class="button button-red" id="save-config">保存修改</button></footer></form></dialog>
-    <dialog class="letter-dialog" id="letter-dialog"><div class="letter-paper"><button class="icon-button letter-close" id="letter-close" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button><span class="letter-stamp" data-copy="letterStamp"></span><h2 data-copy="secretTitle"></h2><p data-copy="secretText"></p><a class="button button-red secret-link" data-url="secretUrl" target="_blank" rel="noopener"><span data-copy="secretCta"></span></a></div></dialog>`
+    <dialog class="letter-dialog" id="letter-dialog"><div class="letter-paper"><button class="icon-button letter-close" id="letter-close" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button><span class="letter-stamp" data-copy="letterStamp"></span><h2 data-copy="secretTitle"></h2><p data-copy="secretText"></p><a class="button button-red secret-link" data-url="secretUrl" target="_blank" rel="noopener"><span data-copy="secretCta"></span></a></div></dialog>
+    <dialog class="friend-manager-dialog" id="friend-manager-dialog"><form method="dialog" class="friend-manager-shell"><header class="edit-header"><div><span>LINK PORTAL · FRIENDS</span><h2>友链管理</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">支持新增、编辑、删除、头像链接或本地上传。要让所有访客看到，请导出 friends.json 并替换仓库中的 data/friends.json 后提交发布。</p><div id="friend-editor-list" class="friend-editor-list"></div><div class="friend-manager-actions"><button type="button" class="button button-quiet" id="friend-add"><i class="fa-solid fa-plus"></i> 添加友链</button><button type="button" class="button button-quiet" id="friend-export">导出 friends.json</button><label class="button button-quiet friend-import-label" for="friend-import">导入友链<input id="friend-import" type="file" accept="application/json"></label><span></span><button type="button" class="button button-red" id="friend-save">保存友链</button></div></form></dialog>`
   document.body.classList.add('cyber-home')
+  const FRIENDS_KEY = 'krrb-blog-friends-v1'
+  const seedFriends = [1, 2, 3].map((n, i) => ({ name: config[`friend${n}Name`], intro: config[`friend${n}Text`], url: config[`friend${n}Url`], avatar: '', icon: ['fa-satellite-dish', 'fa-meteor', 'fa-moon'][i] }))
+  let friends = seedFriends
+  try { friends = JSON.parse(localStorage.getItem(FRIENDS_KEY) || 'null') || seedFriends } catch (_) { friends = seedFriends }
+  const hasLegacyFriends = [1, 2, 3].some(index => config[`friend${index}Name`] !== defaults[`friend${index}Name`] || config[`friend${index}Text`] !== defaults[`friend${index}Text`] || config[`friend${index}Url`] !== defaults[`friend${index}Url`])
+  const hasLocalFriends = localStorage.getItem(FRIENDS_KEY) !== null || hasLegacyFriends
 
   const safeUrl = value => {
     try {
@@ -119,8 +120,107 @@
       const value = config[el.dataset.copy]
       if (value !== undefined) el.textContent = value
     })
+    const dateLabel = document.querySelector('.site-stats [data-copy="siteSince"]')
+    if (dateLabel) dateLabel.textContent = String(config.siteSince || '').replace(/-/g, '.')
     document.querySelectorAll('[data-url]').forEach(el => { el.href = safeUrl(config[el.dataset.url] || '#') })
     document.title = `${config.siteName} — 数字花园`
+  }
+  const validAvatar = value => {
+    if (/^data:image\/(png|jpeg|webp);base64,/i.test(value || '')) return value
+    try { const url = new URL(value); return ['http:', 'https:'].includes(url.protocol) ? url.href : '' } catch (_) { return '' }
+  }
+  const renderFriends = () => {
+    const grid = document.getElementById('friend-grid')
+    grid.replaceChildren()
+    friends.forEach((friend, index) => {
+      const card = document.createElement('a')
+      card.className = 'friend-card'
+      card.href = safeUrl(friend.url)
+      card.target = '_blank'
+      card.rel = 'noopener noreferrer'
+      const number = document.createElement('span')
+      number.className = 'friend-no'
+      number.textContent = `LINK ${String(index + 1).padStart(3, '0')}`
+      const avatar = document.createElement('span')
+      avatar.className = 'friend-avatar-wrap'
+      const imageUrl = validAvatar(friend.avatar)
+      const appendIcon = () => {
+        const icon = document.createElement('i')
+        icon.className = `fa-solid ${(friend.icon || 'fa-star').split(' ').filter(part => /^[a-z0-9-]+$/i.test(part)).join(' ')}`
+        icon.setAttribute('aria-hidden', 'true')
+        avatar.replaceChildren(icon)
+      }
+      if (imageUrl) {
+        const image = document.createElement('img')
+        image.className = 'friend-avatar'
+        image.src = imageUrl
+        image.alt = `${friend.name} 的头像`
+        image.loading = 'lazy'
+        image.onerror = appendIcon
+        avatar.appendChild(image)
+      } else appendIcon()
+      const name = document.createElement('strong')
+      name.textContent = friend.name
+      const intro = document.createElement('small')
+      intro.textContent = friend.intro
+      const arrow = document.createElement('i')
+      arrow.className = 'fa-solid fa-arrow-up-right-from-square friend-arrow'
+      card.append(number, avatar, name, intro, arrow)
+      grid.appendChild(card)
+    })
+  }
+  const drawFriendEditor = () => {
+    const list = document.getElementById('friend-editor-list')
+    list.replaceChildren()
+    friends.forEach((friend, index) => {
+      const row = document.createElement('section')
+      row.className = 'friend-editor-row'
+      row.dataset.index = String(index)
+      row.innerHTML = `<div class="friend-editor-top"><span>LINK ${String(index + 1).padStart(3, '0')}</span><button type="button" class="friend-remove" aria-label="删除友链 ${index + 1}">移除此友链 ×</button></div><div class="friend-editor-fields"><label class="edit-field"><span>友链名称</span><input data-friend="name" value=""></label><label class="edit-field"><span>友链网址</span><input data-friend="url" value="" placeholder="https://"></label><label class="edit-field friend-editor-wide"><span>一句简介</span><textarea data-friend="intro" rows="2"></textarea></label><label class="edit-field"><span>头像图片网址（可选）</span><input data-friend="avatar" value="" placeholder="https://... 或上传本地图片"></label><label class="edit-field"><span>上传头像</span><input data-friend-file type="file" accept="image/png,image/jpeg,image/webp"></label></div>`
+      row.querySelector('[data-friend="name"]').value = friend.name || ''
+      row.querySelector('[data-friend="url"]').value = friend.url || ''
+      row.querySelector('[data-friend="intro"]').value = friend.intro || ''
+      row.querySelector('[data-friend="avatar"]').value = /^https?:/i.test(friend.avatar || '') ? friend.avatar : ''
+      row.dataset.avatarData = /^data:image\//i.test(friend.avatar || '') ? friend.avatar : ''
+      row.querySelector('.friend-remove').addEventListener('click', () => { friends.splice(index, 1); drawFriendEditor() })
+      row.querySelector('[data-friend-file]').addEventListener('change', async event => {
+        const file = event.target.files?.[0]
+        if (!file) return
+        try {
+          row.dataset.avatarData = await resizeAvatar(file)
+          row.querySelector('[data-friend="avatar"]').value = ''
+          event.target.previousElementSibling.textContent = '头像已载入，将随友链一起保存'
+        } catch (_) { alert('头像读取失败，请换一张 PNG、JPG 或 WebP 图片。') }
+      })
+      list.appendChild(row)
+    })
+  }
+  const resizeAvatar = file => new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onerror = reject
+    reader.onload = () => {
+      const image = new Image()
+      image.onerror = reject
+      image.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = 240
+        canvas.height = 240
+        const size = Math.min(image.naturalWidth, image.naturalHeight)
+        const x = (image.naturalWidth - size) / 2
+        const y = (image.naturalHeight - size) / 2
+        canvas.getContext('2d').drawImage(image, x, y, size, size, 0, 0, 240, 240)
+        resolve(canvas.toDataURL('image/webp', .78))
+      }
+      image.src = reader.result
+    }
+    reader.readAsDataURL(file)
+  })
+  const addBusuanzi = () => {
+    if (document.querySelector('script[src*="busuanzi.ibruce.info"]')) return
+    const script = document.createElement('script')
+    script.async = true
+    script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js'
+    document.body.appendChild(script)
   }
   const persistConfig = () => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(config)); return true }
@@ -139,7 +239,27 @@
     fields.appendChild(wrapper)
   })
   applyConfig()
+  renderFriends()
+  drawFriendEditor()
+  if (!hasLocalFriends) fetch('/data/friends.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : null).then(remote => {
+    if (!Array.isArray(remote) || localStorage.getItem(FRIENDS_KEY) !== null) return
+    friends = remote
+    renderFriends()
+    if (!friendDialog.open) drawFriendEditor()
+  }).catch(() => {})
   document.getElementById('year').textContent = new Date().getFullYear()
+
+  addBusuanzi()
+  try {
+    const articles = JSON.parse(localStorage.getItem('krrb-archive-v1') || '[]')
+    const latest = articles.filter(article => article.status === 'published').sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0]
+    if (latest) {
+      document.querySelector('.featured-copy h2').textContent = latest.title
+      document.querySelector('.featured-copy p').textContent = latest.summary || latest.title
+      document.querySelector('.featured-meta small').textContent = latest.category || '随笔'
+      document.querySelectorAll('.featured-image, .featured-copy .text-link').forEach(link => { link.href = `/archives/?article=${encodeURIComponent(latest.id)}` })
+    }
+  } catch (_) { /* the built-in static featured essay remains visible */ }
 
   const editDialog = document.getElementById('edit-dialog')
   document.getElementById('edit-open').addEventListener('click', () => editDialog.showModal())
@@ -148,6 +268,7 @@
     fields.querySelectorAll('[data-edit]').forEach(input => { config[input.dataset.edit] = input.value.trim() })
     const invalidUrl = editFields.find(([key]) => key.endsWith('Url') && !isValidUrl(config[key] || ''))
     if (invalidUrl) { alert(`“${invalidUrl[1]}”请填写 http:// 或 https:// 开头的网址。`); return }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(config.siteSince)) { alert('建站日期请使用 YYYY-MM-DD 格式。'); return }
     if (persistConfig()) { applyConfig(); editDialog.close() }
   })
   document.getElementById('reset-config').addEventListener('click', () => {
@@ -170,6 +291,51 @@
     link.download = 'krrb-home-config.json'
     link.click()
     URL.revokeObjectURL(link.href)
+  })
+  const friendDialog = document.getElementById('friend-manager-dialog')
+  document.getElementById('friend-manage-open').addEventListener('click', () => { drawFriendEditor(); friendDialog.showModal() })
+  document.getElementById('friend-add').addEventListener('click', () => {
+    friends.push({ name: '', intro: '', url: '', avatar: '', icon: 'fa-star' })
+    drawFriendEditor()
+    document.querySelector('.friend-editor-row:last-child [data-friend="name"]').focus()
+  })
+  const readFriendEditor = () => [...document.querySelectorAll('.friend-editor-row')].map(row => ({
+      name: row.querySelector('[data-friend="name"]').value.trim(),
+      url: row.querySelector('[data-friend="url"]').value.trim(),
+      intro: row.querySelector('[data-friend="intro"]').value.trim(),
+      avatar: validAvatar(row.querySelector('[data-friend="avatar"]').value.trim()) || row.dataset.avatarData || '',
+      icon: friends[Number(row.dataset.index)]?.icon || 'fa-star'
+    }))
+  document.getElementById('friend-save').addEventListener('click', () => {
+    const next = readFriendEditor()
+    const invalid = next.find(friend => !friend.name || !friend.intro || !isValidUrl(friend.url))
+    if (invalid) { alert('请为每条友链填写名称、简介以及 http:// 或 https:// 开头的网址。'); return }
+    try {
+      localStorage.setItem(FRIENDS_KEY, JSON.stringify(next))
+      friends = next
+      renderFriends()
+      friendDialog.close()
+    } catch (_) { alert('友链保存失败，图片数据超过浏览器存储容量，请改用较小的头像。') }
+  })
+  document.getElementById('friend-export').addEventListener('click', () => {
+    const draft = readFriendEditor()
+    const blob = new Blob([JSON.stringify(draft.length ? draft : friends, null, 2)], { type: 'application/json' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = 'friends.json'
+    link.click()
+    URL.revokeObjectURL(link.href)
+  })
+  document.getElementById('friend-import').addEventListener('change', async event => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    try {
+      const imported = JSON.parse(await file.text())
+      if (!Array.isArray(imported) || imported.some(friend => !friend || typeof friend.name !== 'string' || typeof friend.url !== 'string')) throw new Error('invalid format')
+      friends = imported
+      drawFriendEditor()
+    } catch (_) { alert('无法读取该文件，请选择此前导出的友链 JSON。') }
+    event.target.value = ''
   })
   document.getElementById('hero-upload').addEventListener('change', event => {
     const file = event.target.files?.[0]

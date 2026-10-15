@@ -20,4 +20,13 @@
 - The screenshot's portrait illustration and radio/flower collage differ from the site's own background art and generated supporting images. This is intentional: composition and atmosphere are borrowed, not the original copyrighted artwork.
 - Recent updates are project cards rather than fabricated blog posts; the featured article CTA opens the site's existing archive.
 
+## Feature follow-up — archive, friends, identity, and site metrics
+
+- Replaced the one-post generated archive view with a responsive WeChat-inspired editor and archive list. Three sample posts load from `data/articles.json`; editor controls and one rendered-article preview were checked in the browser. No edits were committed as browser-local test data.
+- Static publishing is explicit: the editor exports `articles.json` for `/data/articles.json`; friend management exports `friends.json` for `/data/friends.json`. Drafts, uploaded images, and unsynced friend edits remain local to that browser until exported and deployed.
+- Added a custom SVG tab favicon and corrected the hidden-letter target to `https://krrb2006.github.io/cruel.github.io/`.
+- Added the repository creation date (2026-04-02) and anonymous Busuanzi visitor/pageview counts. The local preview returned live counter values; the mobile archive matched the 390 px viewport without horizontal overflow.
+- Verified friend manager presents all three existing links, has avatar URL/upload fields, and adds a fourth editable row. Verified article preview dialog, archive navigation, the exact easter-egg URL, and no browser console errors.
+- Rechecked `node --check js/main.js`, `node --check js/hacker-home.js`, `node --check js/archive-studio.js`, and `git diff --check`.
+
 final result: passed
