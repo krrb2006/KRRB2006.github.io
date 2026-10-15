@@ -1,20 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const favicon = document.createElement('link')
+  const favicon = document.querySelector('link[rel~="icon"]') || document.createElement('link')
   favicon.rel = 'icon'
-  favicon.type = 'image/svg+xml'
-  favicon.href = '/img/garden-mark.svg'
-  document.head.appendChild(favicon)
+  favicon.type = 'image/png'
+  favicon.href = '/img/garden-favicon.png?v=1'
+  if (!favicon.isConnected) document.head.appendChild(favicon)
 
   // The generated Hexo homepage uses a bespoke, editable editorial layout.
   // Keep the existing Butterfly behavior untouched on article/archive pages.
   if (location.pathname === '/' || location.pathname === '/index.html') {
     const stylesheet = document.createElement('link')
     stylesheet.rel = 'stylesheet'
-    stylesheet.href = '/css/hacker-home.css?v=13'
+    stylesheet.href = '/css/hacker-home.css?v=14'
     document.head.appendChild(stylesheet)
 
     const homepage = document.createElement('script')
-    homepage.src = '/js/hacker-home.js?v=13'
+    homepage.src = '/js/hacker-home.js?v=14'
     homepage.defer = true
     document.head.appendChild(homepage)
     return
