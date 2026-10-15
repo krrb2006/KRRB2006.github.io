@@ -16,7 +16,7 @@
 - Fonts and typography: the title uses a readable Chinese display serif, paired with rounded site-name/section text and monospace metadata. Google font imports have system-font fallbacks. The chosen visual's editorial hierarchy is retained.
 - Spacing and layout rhythm: the split image/editorial hero, compact sticky navigation, ticker, and spaced sections follow the selected references. The project, writing, friends, and easter-egg blocks remain distinct and navigable.
 - Colors and tokens: near-black foundation with stronger signal red, pink/violet, and small lime status accents blends option 3's palette with option 1's softer details. The dark/light switch was checked; the default now remains dark and the light variant remains legible.
-- Images and assets: the hero now rotates through four real Wikimedia Commons photos (tomb chamber, esports stage, Dragon Mountain, Shanghai night skyline), not AI-generated background art. Each slide shows a clickable author/license credit; full attribution and modification notes are in `img/ATTRIBUTION.md`. The existing Tomb of Knowledge project-card image remains an illustration and is separate from the homepage background.
+- Images and assets: the hero uses the existing digital-garden cover plus three newly generated, original red/pink cyberpunk illustrations (rooftop, archive, and team arena). The four externally sourced temporary photos were removed. The existing Tomb of Knowledge project-card image remains separate from the homepage background.
 - Copy and content: homepage labels, intro, section copy, all three showcased project descriptions/URLs, friend names/URLs, footer, and hidden letter are editable. Defaults are editorial sample copy and should be replaced with the owner's final wording when desired. The LLM security lab is accurately labeled as in progress based on its public README.
 
 ## Interaction and test evidence
@@ -31,11 +31,11 @@
 
 ## Follow-up verification — 2026-10-15
 
-- Implemented a four-image autoplay carousel with previous/next controls, pagination dots, editable captions, pause-on-hover/focus/hidden-tab behavior, and reduced-motion handling. Manually clicked next and the second pagination dot; the active image, caption, credit, and `aria-selected` dot all updated together.
-- Implemented a visible sparkle icon that tracks the pointer plus short-lived red sparkles along the movement path. A desktop pointer move produced both the active cursor icon and a particle node; touch and reduced-motion users do not receive the trail.
+- Implemented a four-image autoplay carousel with previous/next controls, pagination dots, editable captions, pause-on-hover/focus/hidden-tab behavior, and reduced-motion handling. The original digital-garden cover remains first, followed by three new AI illustrations.
+- Strengthened the cursor trail with interpolated, larger red/pink stars and sparkles along the full movement path; touch and reduced-motion users do not receive the trail.
 - Reworked the hero to be taller and more image-led, closer to option 1 while retaining the red-forward palette. Verified homepage at desktop and 390 × 844 CSS-pixel viewport; the header, image controls, captions, title, and call to action remain visible and usable.
 - Rechecked `node --check js/main.js`, `node --check js/hacker-home.js`, and `git diff --check` after these changes.
-- Commons file pages were checked for the correct authors and licenses; current credits match those pages.
+- The hero now uses only the original illustration and three generated original illustrations; no external photo credits are required.
 - The selected concepts and updated desktop rendering were captured together in `http://127.0.0.1:4175/qa/comparison.html`. The implementation preserves option 1's large visual-led hero and editable right-hand copy while adopting the requested real-photo slideshow; no P0/P1/P2 mismatch was identified. The exact original IP illustrations are intentionally not bundled without clear reuse rights—owner-provided images can replace them through the local upload control.
 
 ## Comparison history

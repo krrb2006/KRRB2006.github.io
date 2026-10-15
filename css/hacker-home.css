@@ -148,10 +148,11 @@ body.cyber-home ::selection { color: #fff; background: #c41237; }
 .cyber-footer p { color: var(--muted); font-size: 11px; }
 .cyber-footer > span { color: var(--muted); font-size: 8px; }
 .cyber-footer > span i { color: var(--red); }
-.cursor-prompt { position: fixed; top: 0; left: 0; z-index: 25; display: grid; place-items: center; width: 24px; height: 24px; color: #ff4665; font-size: 20px; opacity: 0; pointer-events: none; will-change: transform; transition: opacity .15s; filter: drop-shadow(0 0 5px #ff334e); }
+.cursor-prompt { position: fixed; top: 0; left: 0; z-index: 25; display: grid; place-items: center; width: 34px; height: 34px; color: #ff4665; font-size: 27px; opacity: 0; pointer-events: none; will-change: transform; transition: opacity .15s; filter: drop-shadow(0 0 5px #ff334e) drop-shadow(0 0 13px #ff334e); }
 .cursor-prompt.cursor-visible { opacity: 1; }
-.cursor-particle { position: fixed; z-index: 24; margin: -8px 0 0 -8px; color: var(--red); font-size: 15px; pointer-events: none; text-shadow: 0 0 9px #ff334e; animation: cursor-sparkle .72s ease-out forwards; }
-@keyframes cursor-sparkle { 0% { opacity: 0; transform: translate(0, 0) scale(.45) rotate(var(--particle-tilt)); } 22% { opacity: 1; } 100% { opacity: 0; transform: translate(6px, -20px) scale(1.2) rotate(calc(var(--particle-tilt) + 35deg)); } }
+.cursor-particle { position: fixed; z-index: 24; margin: -10px 0 0 -10px; color: #ff4265; font-size: var(--particle-size, 17px); pointer-events: none; text-shadow: 0 0 5px #fff, 0 0 12px #ff334e, 0 0 22px #ff334e; animation: cursor-sparkle .82s cubic-bezier(.16,.72,.34,1) forwards; }
+.cursor-particle:nth-child(3n) { color: #ff9cb4; }
+@keyframes cursor-sparkle { 0% { opacity: 0; transform: translate(0, 0) scale(.3) rotate(var(--particle-tilt)); } 18% { opacity: 1; transform: translate(0, -2px) scale(1.2) rotate(var(--particle-tilt)); } 100% { opacity: 0; transform: translate(10px, -30px) scale(.15) rotate(calc(var(--particle-tilt) + 65deg)); } }
 dialog { color: var(--paper); border: 1px solid var(--line); background: var(--card); box-shadow: 0 26px 100px #0009; }
 dialog::backdrop { background: #070508bd; backdrop-filter: blur(7px); }
 .edit-dialog { width: min(760px, calc(100vw - 26px)); max-width: none; max-height: min(86vh, 920px); padding: 0; }

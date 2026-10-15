@@ -4,7 +4,7 @@
     siteName: '一如既往',
     navHome: '首页', navWriting: '文章', navProjects: '项目', navFriends: '友链', navAbout: '关于', statusTag: 'ONLINE',
     eyebrow: 'A GIRL · A KEYBOARD · A MORE INTERESTING UNIVERSE', artStamp: 'NO. 01\nGIRL IN THE SYSTEM',
-    slide1Title: '盗墓笔记 · 古迹与未知', slide2Title: '全职高手 · 热血竞技场', slide3Title: '龙族 · 山海幻想', slide4Title: '银魂 · 群像与日常',
+    slide1Title: '数字花园 · 原始封面', slide2Title: '霓虹天台 · 夜行者', slide3Title: '知识冢 · 深处的档案', slide4Title: '赤色竞技场 · 群像与热爱',
     tickerOne: 'THINK DEEPER', tickerTwo: 'BUILD COOLER THINGS', tickerThree: 'LIVE A SOFTER LIFE',
     title: '你好，欢迎来到\n我的数字花园',
     intro: '在代码与日常之间，记录思考、收集喜欢，也种下一些柔软而坚定的东西。',
@@ -71,12 +71,12 @@
     <main id="top">
       <section class="hero wrap">
         <div class="hero-art" aria-label="灵感主题图片轮播">
-          <img class="hero-slide is-active" src="/img/hero-tomb.jpg" alt="大马士革国家博物馆复原的古代地下墓室" data-credit="https://commons.wikimedia.org/wiki/File:Damascus_National_Museum_hypogeum_of_Yarhal_7834.jpg" data-credit-name="Dosseman · CC BY-SA 4.0">
-          <img class="hero-slide" src="/img/hero-arena.jpg" alt="Game On Expo 电竞主舞台" data-credit="https://commons.wikimedia.org/wiki/File:Game_On_Expo_2022_Main_esports_stage.jpg" data-credit-name="Gamester81 · CC BY-SA 4.0">
-          <img class="hero-slide" src="/img/hero-dragon.jpg" alt="越南宁平龙山与山间洞穴" data-credit="https://commons.wikimedia.org/wiki/File:Dragon_Mountain_(29843112887).jpg" data-credit-name="Rod Waddington · CC BY-SA 2.0">
-          <img class="hero-slide" src="/img/hero-city.jpg" alt="夜色中的上海天际线" data-credit="https://commons.wikimedia.org/wiki/File:Shanghai_skyline_at_night.jpg" data-credit-name="Ernest Jourdier · CC BY 4.0">
+          <img class="hero-slide is-active" src="/img/hacker-garden.jpg" alt="红色霓虹数字花园中的少女黑客" data-credit-name="主页原始插画">
+          <img class="hero-slide" src="/img/hacker-rooftop.png" alt="樱花与霓虹城市中的少女黑客" data-credit-name="原创 AI 氛围插画">
+          <img class="hero-slide" src="/img/hacker-archive.png" alt="深山数字档案馆中的少女探索者" data-credit-name="原创 AI 氛围插画">
+          <img class="hero-slide" src="/img/hacker-arena.png" alt="红色灯光下的原创电竞群像" data-credit-name="原创 AI 氛围插画">
           <div class="art-shade" aria-hidden="true"></div><div class="art-stamp" data-copy="artStamp"></div>
-          <div class="hero-slide-caption"><span class="slide-count">01 / 04</span><strong data-copy="slide1Title"></strong><a class="slide-credit" href="https://commons.wikimedia.org/wiki/File:Damascus_National_Museum_hypogeum_of_Yarhal_7834.jpg" target="_blank" rel="noopener" aria-label="查看图片作者与许可">Dosseman · CC BY-SA 4.0</a></div>
+          <div class="hero-slide-caption"><span class="slide-count">01 / 04</span><strong data-copy="slide1Title"></strong><span class="slide-credit">主页原始插画</span></div>
           <div class="hero-controls"><button class="slide-arrow" id="slide-prev" aria-label="上一张"><i class="fa-solid fa-arrow-left"></i></button><div class="slide-dots" role="tablist" aria-label="选择主题图片"><button class="slide-dot is-active" aria-label="第 1 张图片" aria-selected="true"></button><button class="slide-dot" aria-label="第 2 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 3 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 4 张图片" aria-selected="false"></button></div><button class="slide-arrow" id="slide-next" aria-label="下一张"><i class="fa-solid fa-arrow-right"></i></button></div>
         </div>
         <div class="hero-copy"><p class="eyebrow" data-copy="eyebrow"></p><h1 data-copy="title"></h1><div class="red-rule"></div><p class="hero-intro" data-copy="intro"></p><div class="hero-bottom"><a class="button button-red" href="#writing"><span data-copy="navWriting"></span><i class="fa-solid fa-arrow-right"></i></a><span class="signature" data-copy="signature"></span></div></div>
@@ -153,7 +153,6 @@
     localStorage.removeItem(`${STORAGE_KEY}-image-slide`)
     slides.forEach(slide => {
       slide.src = slide.dataset.originalSrc
-      slide.dataset.credit = slide.dataset.originalCredit
       slide.dataset.creditName = slide.dataset.originalCreditName
     })
     showSlide(0)
@@ -175,7 +174,6 @@
     reader.onload = () => {
       const currentSlide = slides[activeSlide]
       currentSlide.src = reader.result
-      currentSlide.dataset.credit = 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia'
       currentSlide.dataset.creditName = '你上传的图片'
       showSlide(activeSlide)
       try {
@@ -190,12 +188,10 @@
   const slides = [...document.querySelectorAll('.hero-slide')]
   slides.forEach(slide => {
     slide.dataset.originalSrc = slide.getAttribute('src')
-    slide.dataset.originalCredit = slide.dataset.credit
     slide.dataset.originalCreditName = slide.dataset.creditName
   })
   if (savedImage && slides[savedImageSlide]) {
     slides[savedImageSlide].src = savedImage
-    slides[savedImageSlide].dataset.credit = 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia'
     slides[savedImageSlide].dataset.creditName = '你上传的图片'
   }
   const slideDots = [...document.querySelectorAll('.slide-dot')]
@@ -212,8 +208,7 @@
     slideCaption.querySelector('[data-copy]').dataset.copy = `slide${activeSlide + 1}Title`
     slideCaption.querySelector('[data-copy]').textContent = config[`slide${activeSlide + 1}Title`]
     const credit = slideCaption.querySelector('.slide-credit')
-    credit.href = slides[activeSlide].dataset.credit
-    credit.textContent = slides[activeSlide].dataset.creditName
+    credit.textContent = slides[activeSlide].dataset.creditName || (activeSlide === 0 ? '主页原始插画' : '原创 AI 氛围插画')
   }
   document.getElementById('slide-prev').addEventListener('click', () => showSlide(activeSlide - 1))
   document.getElementById('slide-next').addEventListener('click', () => showSlide(activeSlide + 1))
@@ -267,8 +262,19 @@
 
   const prompt = document.getElementById('cursor-prompt')
   let cursorFrame = 0
-  let lastParticle = { x: 0, y: 0 }
+  let lastParticle = null
   let particleClock = 0
+  const spawnSpark = (x, y, index) => {
+    const particle = document.createElement('i')
+    particle.className = `cursor-particle fa-solid ${index % 3 === 0 ? 'fa-sparkles' : 'fa-star'}`
+    particle.setAttribute('aria-hidden', 'true')
+    particle.style.left = `${x}px`
+    particle.style.top = `${y}px`
+    particle.style.setProperty('--particle-tilt', `${Math.round(Math.random() * 80 - 40)}deg`)
+    particle.style.setProperty('--particle-size', `${12 + Math.round(Math.random() * 10)}px`)
+    document.body.appendChild(particle)
+    particle.addEventListener('animationend', () => particle.remove(), { once: true })
+  }
   document.addEventListener('pointermove', event => {
     if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     if (cursorFrame) cancelAnimationFrame(cursorFrame)
@@ -276,20 +282,18 @@
       prompt.style.transform = `translate(${event.clientX + 14}px, ${event.clientY + 12}px)`
       prompt.classList.add('cursor-visible')
     })
-    const distance = Math.hypot(event.clientX - lastParticle.x, event.clientY - lastParticle.y)
     const now = performance.now()
-    if (distance > 18 && now - particleClock > 24) {
-      const particle = document.createElement('i')
-      particle.className = 'cursor-particle fa-solid fa-sparkles'
-      particle.setAttribute('aria-hidden', 'true')
-      particle.style.left = `${event.clientX}px`
-      particle.style.top = `${event.clientY}px`
-      particle.style.setProperty('--particle-tilt', `${Math.round(Math.random() * 70 - 35)}deg`)
-      document.body.appendChild(particle)
-      particle.addEventListener('animationend', () => particle.remove(), { once: true })
-      lastParticle = { x: event.clientX, y: event.clientY }
+    const point = { x: event.clientX, y: event.clientY }
+    const distance = lastParticle ? Math.hypot(point.x - lastParticle.x, point.y - lastParticle.y) : 0
+    if (lastParticle && distance > 5 && now - particleClock > 10) {
+      const steps = Math.min(8, Math.max(1, Math.ceil(distance / 11)))
+      for (let i = 1; i <= steps; i++) {
+        const t = i / steps
+        spawnSpark(lastParticle.x + (point.x - lastParticle.x) * t, lastParticle.y + (point.y - lastParticle.y) * t, i + Math.floor(now))
+      }
+      lastParticle = point
       particleClock = now
-    }
+    } else if (!lastParticle) lastParticle = point
   })
   document.addEventListener('pointerleave', () => prompt.classList.remove('cursor-visible'))
 })()
