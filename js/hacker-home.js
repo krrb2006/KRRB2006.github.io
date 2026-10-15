@@ -92,8 +92,12 @@
       <section class="section wrap friends-section" id="friends"><div class="section-label"><span data-copy="friendsIndex"></span><span data-copy="friendsLabel"></span></div><div class="section-heading"><h2 data-copy="friendHeading"></h2><p data-copy="friendLead"></p></div><div class="friend-grid" id="friend-grid"></div><button type="button" class="button button-quiet friend-manage-open" id="friend-manage-open"><i class="fa-solid fa-pen-to-square"></i> 管理友链</button></section>
       <section class="secret-section wrap" id="secret"><div class="secret-copy"><span class="section-label-inline" data-copy="secretLabel"></span><p data-copy="secretHint"></p></div><div class="star-lock" aria-label="点亮三颗星解锁隐藏来信"><button class="star" aria-label="点亮第一颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第二颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第三颗星"><i class="fa-solid fa-star"></i></button><span class="star-status">0 / 3</span></div></section>
     </main>
-    <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span></footer>
+    <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><button class="terminal-open" id="terminal-open" type="button" title="隐藏终端彩蛋：键入 garden"><i class="fa-solid fa-terminal"></i><span>GARDEN TERMINAL</span><kbd>TYPE GARDEN</kbd></button><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span></footer>
     <span class="cursor-prompt" id="cursor-prompt" aria-hidden="true"><i class="fa-solid fa-sparkles"></i></span>
+    <span class="cursor-orbit" id="cursor-orbit" aria-hidden="true"></span>
+    <canvas class="signal-canvas" id="signal-canvas" aria-hidden="true"></canvas>
+    <div class="reading-signal" id="reading-signal" aria-hidden="true"><span></span></div>
+    <dialog class="terminal-dialog" id="terminal-dialog" aria-labelledby="terminal-title"><section class="terminal-shell"><header class="terminal-top"><div><i></i><i></i><i></i></div><span id="terminal-title">GARDEN://LOCAL_TERMINAL</span><button class="icon-button" id="terminal-close" aria-label="关闭终端"><i class="fa-solid fa-xmark"></i></button></header><div class="terminal-screen"><p class="terminal-welcome">SIGNAL FOUND · 欢迎来到花园的隐藏层。<br>输入 <code>help</code> 查看可用指令。</p><div class="terminal-output-log" id="terminal-log" aria-live="polite"></div><form id="terminal-form"><label for="terminal-input">krrb@garden:~$</label><input id="terminal-input" autocomplete="off" spellcheck="false" aria-label="输入终端指令"><button type="submit" aria-label="执行指令"><i class="fa-solid fa-arrow-right"></i></button></form></div><footer>LOCAL SIMULATION · NO SHELL ACCESS · ESC TO CLOSE</footer></section></dialog>
     <dialog class="edit-dialog" id="edit-dialog"><form method="dialog" class="edit-shell"><header class="edit-header"><div><span>PERSONAL CONTROL PANEL</span><h2>自定义你的数字花园</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">更改和图片保存在当前浏览器，只影响这台设备。若要让所有访客看到修改，请导出配置后同步更新仓库内容并发布。</p><div class="edit-fields" id="edit-fields"></div><div class="upload-field"><label for="hero-upload">替换当前轮播图 <small>PNG / JPG / WebP，建议小于 2 MB；只保存在本浏览器并记住当前页序</small></label><input id="hero-upload" type="file" accept="image/png,image/jpeg,image/webp"></div><footer class="edit-footer"><button type="button" class="button button-quiet" id="reset-config">恢复默认</button><span></span><button type="button" class="button button-quiet" id="export-config">导出配置</button><button type="submit" class="button button-red" id="save-config">保存修改</button></footer></form></dialog>
     <dialog class="letter-dialog" id="letter-dialog"><div class="letter-paper"><button class="icon-button letter-close" id="letter-close" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button><span class="letter-stamp" data-copy="letterStamp"></span><h2 data-copy="secretTitle"></h2><p data-copy="secretText"></p><a class="button button-red secret-link" data-url="secretUrl" target="_blank" rel="noopener"><span data-copy="secretCta"></span></a></div></dialog>
     <dialog class="friend-manager-dialog" id="friend-manager-dialog"><form method="dialog" class="friend-manager-shell"><header class="edit-header"><div><span>LINK PORTAL · FRIENDS</span><h2>友链管理</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">支持新增、编辑、删除、头像链接或本地上传。要让所有访客看到，请导出 friends.json 并替换仓库中的 data/friends.json 后提交发布。</p><div id="friend-editor-list" class="friend-editor-list"></div><div class="friend-manager-actions"><button type="button" class="button button-quiet" id="friend-add"><i class="fa-solid fa-plus"></i> 添加友链</button><button type="button" class="button button-quiet" id="friend-export">导出 friends.json</button><label class="button button-quiet friend-import-label" for="friend-import">导入友链<input id="friend-import" type="file" accept="application/json"></label><span></span><button type="button" class="button button-red" id="friend-save">保存友链</button></div></form></dialog>`
@@ -484,7 +488,123 @@
   }), { threshold: 0.12 })
   document.querySelectorAll('.section, .secret-section').forEach(section => { section.classList.add('reveal'); revealObserver.observe(section) })
 
+  // A lightweight, decorative signal field: pointer-reactive, density capped, and
+  // completely disabled for reduced-motion users or hidden tabs.
+  const signalCanvas = document.getElementById('signal-canvas')
+  const signalContext = signalCanvas.getContext('2d', { alpha: true })
+  const signalNodes = []
+  const signalPointer = { x: -1000, y: -1000 }
+  let signalFrame = 0
+  let signalWidth = 0
+  let signalHeight = 0
+  const signalMotionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const resizeSignal = () => {
+    const ratio = Math.min(window.devicePixelRatio || 1, 1.5)
+    signalWidth = window.innerWidth
+    signalHeight = window.innerHeight
+    signalCanvas.width = Math.round(signalWidth * ratio)
+    signalCanvas.height = Math.round(signalHeight * ratio)
+    signalCanvas.style.width = `${signalWidth}px`
+    signalCanvas.style.height = `${signalHeight}px`
+    signalContext.setTransform(ratio, 0, 0, ratio, 0, 0)
+    signalNodes.length = 0
+    const count = Math.min(54, Math.max(24, Math.floor(signalWidth * signalHeight / 26000)))
+    for (let i = 0; i < count; i++) signalNodes.push({ x: Math.random() * signalWidth, y: Math.random() * signalHeight, vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18, phase: Math.random() * 6 })
+  }
+  const drawSignal = time => {
+    signalFrame = 0
+    if (document.hidden || !signalMotionOK) return
+    signalContext.clearRect(0, 0, signalWidth, signalHeight)
+    for (let i = 0; i < signalNodes.length; i++) {
+      const node = signalNodes[i]
+      node.x += node.vx; node.y += node.vy
+      if (node.x < -8 || node.x > signalWidth + 8) node.vx *= -1
+      if (node.y < -8 || node.y > signalHeight + 8) node.vy *= -1
+      const dx = node.x - signalPointer.x; const dy = node.y - signalPointer.y
+      const distanceToPointer = Math.hypot(dx, dy)
+      if (distanceToPointer < 115 && distanceToPointer > 0) { node.x += dx / distanceToPointer * .22; node.y += dy / distanceToPointer * .22 }
+      signalContext.fillStyle = `rgba(255, ${70 + Math.round(22 * Math.sin(time / 1300 + node.phase))}, 105, .48)`
+      signalContext.beginPath(); signalContext.arc(node.x, node.y, 1.1, 0, Math.PI * 2); signalContext.fill()
+      for (let j = i + 1; j < signalNodes.length; j++) {
+        const other = signalNodes[j]
+        const distance = Math.hypot(node.x - other.x, node.y - other.y)
+        if (distance < 105) {
+          signalContext.strokeStyle = `rgba(242, 115, 145, ${(1 - distance / 105) * .105})`
+          signalContext.lineWidth = .65; signalContext.beginPath(); signalContext.moveTo(node.x, node.y); signalContext.lineTo(other.x, other.y); signalContext.stroke()
+        }
+      }
+    }
+    signalFrame = requestAnimationFrame(drawSignal)
+  }
+  if (signalMotionOK && signalContext) {
+    resizeSignal()
+    signalFrame = requestAnimationFrame(drawSignal)
+    window.addEventListener('resize', resizeSignal, { passive: true })
+    document.addEventListener('pointermove', event => { signalPointer.x = event.clientX; signalPointer.y = event.clientY }, { passive: true })
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && signalFrame) { cancelAnimationFrame(signalFrame); signalFrame = 0 }
+      else if (!document.hidden && !signalFrame) signalFrame = requestAnimationFrame(drawSignal)
+    })
+  }
+
+  // Reading progress is intentionally a hairline, not a blocking widget.
+  const readingSignal = document.querySelector('.reading-signal > span')
+  let progressFrame = 0
+  const updateReadingSignal = () => {
+    progressFrame = 0
+    const range = document.documentElement.scrollHeight - window.innerHeight
+    readingSignal.style.transform = `scaleX(${range > 0 ? Math.min(1, window.scrollY / range) : 0})`
+  }
+  window.addEventListener('scroll', () => { if (!progressFrame) progressFrame = requestAnimationFrame(updateReadingSignal) }, { passive: true })
+  updateReadingSignal()
+
+  // Keyboard-discoverable, deliberately simulated terminal: commands can only
+  // reveal page sections or open the user's existing links; no shell/eval/network.
+  const terminal = document.getElementById('terminal-dialog')
+  const terminalInput = document.getElementById('terminal-input')
+  const terminalLog = document.getElementById('terminal-log')
+  const terminalForm = document.getElementById('terminal-form')
+  const terminalClose = () => terminal.close()
+  document.getElementById('terminal-open').addEventListener('click', () => { terminal.showModal(); setTimeout(() => terminalInput.focus(), 30) })
+  const terminalCommands = {
+    help: 'help · about · projects · friends · archive · secret · clear · exit',
+    whoami: 'krrb@digital-garden — collector of stories, builder of small universes.',
+    ls: 'about/  projects/  friends/  archives/  secret.signal',
+    about: () => { document.querySelector('#about').scrollIntoView({ behavior: signalMotionOK ? 'smooth' : 'auto' }); return '正在连接个人档案…' },
+    projects: () => { document.querySelector('#projects').scrollIntoView({ behavior: signalMotionOK ? 'smooth' : 'auto' }); return '正在连接项目星图…' },
+    friends: () => { document.querySelector('#friends').scrollIntoView({ behavior: signalMotionOK ? 'smooth' : 'auto' }); return '正在连接同频站点…' },
+    archive: () => { location.href = '/archives/'; return '传送至文章档案…' },
+    secret: () => { document.querySelector('#secret').scrollIntoView({ behavior: signalMotionOK ? 'smooth' : 'auto' }); return '信号坐标已标记：页面底部的三颗星。' },
+    clear: () => { terminalLog.replaceChildren(); return '' },
+    exit: () => { terminalClose(); return 'connection closed' }
+  }
+  document.getElementById('terminal-close').addEventListener('click', terminalClose)
+  terminal.addEventListener('click', event => { if (event.target === terminal) terminalClose() })
+  terminal.addEventListener('close', () => document.getElementById('terminal-open')?.focus())
+  terminalForm.addEventListener('submit', event => {
+    event.preventDefault()
+    const command = terminalInput.value.trim().toLowerCase()
+    if (!command) return
+    const inputLine = document.createElement('p'); inputLine.className = 'terminal-command-line'; inputLine.textContent = `krrb@garden:~$ ${command}`; terminalLog.append(inputLine)
+    const action = terminalCommands[command]
+    const response = typeof action === 'function' ? action() : (action || `unknown command: ${command} · 输入 help 查看指令。`)
+    if (response) { const output = document.createElement('p'); output.className = 'terminal-response'; output.textContent = response; terminalLog.append(output) }
+    terminalInput.value = ''; terminalLog.scrollTop = terminalLog.scrollHeight
+  })
+  let secretTyping = ''
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && terminal.open) { terminalClose(); return }
+    if (terminal.open || event.ctrlKey || event.metaKey || event.altKey || event.key.length !== 1 || /input|textarea|select/i.test(document.activeElement?.tagName || '')) return
+    secretTyping = `${secretTyping}${event.key.toLowerCase()}`.slice(-6)
+    if (secretTyping === 'garden') {
+      if (!terminal.open) terminal.showModal()
+      setTimeout(() => terminalInput.focus(), 30)
+      secretTyping = ''
+    }
+  })
+
   const prompt = document.getElementById('cursor-prompt')
+  const orbit = document.getElementById('cursor-orbit')
   let cursorFrame = 0
   let lastParticle = null
   let particleClock = 0
@@ -504,7 +624,9 @@
     if (cursorFrame) cancelAnimationFrame(cursorFrame)
     cursorFrame = requestAnimationFrame(() => {
       prompt.style.transform = `translate(${event.clientX + 14}px, ${event.clientY + 12}px)`
+      orbit.style.transform = `translate(${event.clientX - 17}px, ${event.clientY - 17}px)`
       prompt.classList.add('cursor-visible')
+      orbit.classList.add('cursor-visible')
     })
     const now = performance.now()
     const point = { x: event.clientX, y: event.clientY }
@@ -519,5 +641,5 @@
       particleClock = now
     } else if (!lastParticle) lastParticle = point
   })
-  document.addEventListener('pointerleave', () => prompt.classList.remove('cursor-visible'))
+  document.addEventListener('pointerleave', () => { prompt.classList.remove('cursor-visible'); orbit.classList.remove('cursor-visible') })
 })()
