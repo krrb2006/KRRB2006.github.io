@@ -3,8 +3,8 @@
 ## Evidence and comparison target
 
 - Selected source visuals: ImageGen option 1 at `C:\Users\29131\.codex\generated_images\01a11f76-dfec-7052-a62c-a4be61c332ad\exec-410a1e8e-041b-4c9b-98c5-b2c20e5e5984.png` and option 3 at `C:\Users\29131\.codex\generated_images\01a11f76-dfec-7052-a62c-a4be61c332ad\exec-338e1a87-3713-4c3c-8bd1-8574cd48bc3d.png`. The user asked to blend their layout/energy and the darker, red-forward palette.
-- Rendered implementation: `http://127.0.0.1:4174/` (main page in the Codex in-app browser, tab 5; direct capture 1270 × 717 px).
-- Combined visual comparison: `http://127.0.0.1:4174/qa/comparison.html` (both selected concepts and the rendered page are visible in one capture).
+- Rendered implementation: `http://127.0.0.1:4175/` (local verification preview; desktop and 390 × 844 mobile viewport inspected).
+- Combined visual comparison: `http://127.0.0.1:4175/qa/comparison.html` (both selected concepts and the updated rendered page were visible together in one capture).
 - Source dimensions: both generated concepts are 1536 × 1024 px. The comparison frame presents them in 16:9 cards with `object-fit: cover`, so the visible source crops are not a pixel-exact viewport capture.
 - Implementation capture: 1270 × 717 px browser screenshot; nominal CSS viewport 1270 × 717 px, browser scale reported by the capture API is unavailable. In the combined comparison, the implementation is rendered at 1280 × 720 then scaled to fit its 16:9 frame. No pixel-density resampling was applied to the direct implementation capture.
 - State: desktop homepage, dark theme, top-of-page hero; the full page content and interaction states were also inspected by scrolling/opening the editor and secret letter.
@@ -16,7 +16,7 @@
 - Fonts and typography: the title uses a readable Chinese display serif, paired with rounded site-name/section text and monospace metadata. Google font imports have system-font fallbacks. The chosen visual's editorial hierarchy is retained.
 - Spacing and layout rhythm: the split image/editorial hero, compact sticky navigation, ticker, and spaced sections follow the selected references. The project, writing, friends, and easter-egg blocks remain distinct and navigable.
 - Colors and tokens: near-black foundation with stronger signal red, pink/violet, and small lime status accents blends option 3's palette with option 1's softer details. The dark/light switch was checked; the default now remains dark and the light variant remains legible.
-- Images and assets: the hero and Tomb of Knowledge project covers are original generated raster assets, compressed to JPG (about 281 KB and 309 KB). No text is baked into the imagery, keeping editable copy independent.
+- Images and assets: the hero now rotates through four real Wikimedia Commons photos (tomb chamber, esports stage, Dragon Mountain, Shanghai night skyline), not AI-generated background art. Each slide shows a clickable author/license credit; full attribution and modification notes are in `img/ATTRIBUTION.md`. The existing Tomb of Knowledge project-card image remains an illustration and is separate from the homepage background.
 - Copy and content: homepage labels, intro, section copy, all three showcased project descriptions/URLs, friend names/URLs, footer, and hidden letter are editable. Defaults are editorial sample copy and should be replaced with the owner's final wording when desired. The LLM security lab is accurately labeled as in progress based on its public README.
 
 ## Interaction and test evidence
@@ -26,8 +26,17 @@
 - Lit the three stars in order; the hidden letter opened and its link resolves to `https://github.com/krrb2006/cruel.github.io`.
 - Verified the Tomb of Knowledge live demo and repository return HTTP 200. Tested its links, plus the three supplied friend links are wired into editable URL fields.
 - `node --check js/main.js`, `node --check js/hacker-home.js`, and `git diff --check` pass.
-- Responsive breakpoint rules are present for widths below 760 px and reduced-motion preferences; a separate mobile viewport capture was not available through the selected browser control surface.
-- Browser console logs were not exposed by the selected in-app browser API, so console-error inspection remains a test gap.
+- Responsive breakpoint rules are present for widths below 760 px and reduced-motion preferences; the mobile hero was inspected at a 390 × 844 CSS-pixel viewport.
+- Browser console error collection was unavailable through the selected in-app browser control; no visible runtime errors appeared in the rendered page.
+
+## Follow-up verification — 2026-10-15
+
+- Implemented a four-image autoplay carousel with previous/next controls, pagination dots, editable captions, pause-on-hover/focus/hidden-tab behavior, and reduced-motion handling. Manually clicked next and the second pagination dot; the active image, caption, credit, and `aria-selected` dot all updated together.
+- Implemented a visible sparkle icon that tracks the pointer plus short-lived red sparkles along the movement path. A desktop pointer move produced both the active cursor icon and a particle node; touch and reduced-motion users do not receive the trail.
+- Reworked the hero to be taller and more image-led, closer to option 1 while retaining the red-forward palette. Verified homepage at desktop and 390 × 844 CSS-pixel viewport; the header, image controls, captions, title, and call to action remain visible and usable.
+- Rechecked `node --check js/main.js`, `node --check js/hacker-home.js`, and `git diff --check` after these changes.
+- Commons file pages were checked for the correct authors and licenses; current credits match those pages.
+- The selected concepts and updated desktop rendering were captured together in `http://127.0.0.1:4175/qa/comparison.html`. The implementation preserves option 1's large visual-led hero and editable right-hand copy while adopting the requested real-photo slideshow; no P0/P1/P2 mismatch was identified. The exact original IP illustrations are intentionally not bundled without clear reuse rights—owner-provided images can replace them through the local upload control.
 
 ## Comparison history
 
@@ -38,9 +47,10 @@
 - [x] Main-blog role is limited to `KRRB2006.github.io`; `cruel.github.io` is only linked from the three-star easter egg.
 - [x] Custom homepage has editable text fields, local-browser persistence, JSON export, and background-image replacement.
 - [x] Friends, archives, Tomb of Knowledge demo/source, and the secret letter have working links.
-- [x] Desktop visual comparison and key interactions reviewed.
+- [x] Desktop and mobile hero layouts plus carousel and cursor interactions reviewed.
 - [ ] Replace sample article/about copy with the owner's final text, if desired.
-- [ ] Run a dedicated mobile viewport and browser-console pass when those controls are available.
+- [x] Inspect the mobile breakpoint and carousel controls at a 390 × 844 viewport.
+- [ ] Run a browser-console log pass when a console-inspection surface is available.
 
 ## Follow-up polish
 

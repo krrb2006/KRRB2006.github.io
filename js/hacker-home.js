@@ -4,6 +4,7 @@
     siteName: '一如既往',
     navHome: '首页', navWriting: '文章', navProjects: '项目', navFriends: '友链', navAbout: '关于', statusTag: 'ONLINE',
     eyebrow: 'A GIRL · A KEYBOARD · A MORE INTERESTING UNIVERSE', artStamp: 'NO. 01\nGIRL IN THE SYSTEM',
+    slide1Title: '盗墓笔记 · 古迹与未知', slide2Title: '全职高手 · 热血竞技场', slide3Title: '龙族 · 山海幻想', slide4Title: '银魂 · 群像与日常',
     tickerOne: 'THINK DEEPER', tickerTwo: 'BUILD COOLER THINGS', tickerThree: 'LIVE A SOFTER LIFE',
     title: '你好，欢迎来到\n我的数字花园',
     intro: '在代码与日常之间，记录思考、收集喜欢，也种下一些柔软而坚定的东西。',
@@ -39,7 +40,7 @@
   }
   const editFields = [
     ['siteName', '网站名称'], ['navHome', '导航：主页'], ['navWriting', '导航：文章'], ['navProjects', '导航：项目'], ['navFriends', '导航：友链'], ['navAbout', '导航：关于'], ['statusTag', '状态文字'],
-    ['eyebrow', '标题上方英文小字'], ['artStamp', '头图角标（换行用回车）'], ['title', '主页大标题（换行用回车）'], ['intro', '主页介绍'], ['signature', '个性签名'],
+    ['eyebrow', '标题上方英文小字'], ['artStamp', '头图角标（换行用回车）'], ['slide1Title', '轮播图标题 1'], ['slide2Title', '轮播图标题 2'], ['slide3Title', '轮播图标题 3'], ['slide4Title', '轮播图标题 4'], ['title', '主页大标题（换行用回车）'], ['intro', '主页介绍'], ['signature', '个性签名'],
     ['tickerOne', '滚动标语 1'], ['tickerTwo', '滚动标语 2'], ['tickerThree', '滚动标语 3'],
     ['aboutIndex', '关于区编号'], ['aboutLabel', '关于区中文标签'], ['aboutTitle', '关于标题'], ['aboutText', '关于介绍'], ['terminalUser', '终端用户名'], ['terminalText', '终端简介'],
     ['projectIndex', '项目区编号'], ['projectLabel', '项目区中文标签'], ['projectHeading', '项目区标题'], ['projectLead', '项目区介绍'], ['projectKind', '项目类型标签'],
@@ -69,7 +70,15 @@
     </header>
     <main id="top">
       <section class="hero wrap">
-        <div class="hero-art"><img src="/img/hacker-garden.jpg" alt="红色霓虹下的数字花园插画"><div class="art-stamp" data-copy="artStamp"></div></div>
+        <div class="hero-art" aria-label="灵感主题图片轮播">
+          <img class="hero-slide is-active" src="/img/hero-tomb.jpg" alt="大马士革国家博物馆复原的古代地下墓室" data-credit="https://commons.wikimedia.org/wiki/File:Damascus_National_Museum_hypogeum_of_Yarhal_7834.jpg" data-credit-name="Dosseman · CC BY-SA 4.0">
+          <img class="hero-slide" src="/img/hero-arena.jpg" alt="Game On Expo 电竞主舞台" data-credit="https://commons.wikimedia.org/wiki/File:Game_On_Expo_2022_Main_esports_stage.jpg" data-credit-name="Gamester81 · CC BY-SA 4.0">
+          <img class="hero-slide" src="/img/hero-dragon.jpg" alt="越南宁平龙山与山间洞穴" data-credit="https://commons.wikimedia.org/wiki/File:Dragon_Mountain_(29843112887).jpg" data-credit-name="Rod Waddington · CC BY-SA 2.0">
+          <img class="hero-slide" src="/img/hero-city.jpg" alt="夜色中的上海天际线" data-credit="https://commons.wikimedia.org/wiki/File:Shanghai_skyline_at_night.jpg" data-credit-name="Ernest Jourdier · CC BY 4.0">
+          <div class="art-shade" aria-hidden="true"></div><div class="art-stamp" data-copy="artStamp"></div>
+          <div class="hero-slide-caption"><span class="slide-count">01 / 04</span><strong data-copy="slide1Title"></strong><a class="slide-credit" href="https://commons.wikimedia.org/wiki/File:Damascus_National_Museum_hypogeum_of_Yarhal_7834.jpg" target="_blank" rel="noopener" aria-label="查看图片作者与许可">Dosseman · CC BY-SA 4.0</a></div>
+          <div class="hero-controls"><button class="slide-arrow" id="slide-prev" aria-label="上一张"><i class="fa-solid fa-arrow-left"></i></button><div class="slide-dots" role="tablist" aria-label="选择主题图片"><button class="slide-dot is-active" aria-label="第 1 张图片" aria-selected="true"></button><button class="slide-dot" aria-label="第 2 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 3 张图片" aria-selected="false"></button><button class="slide-dot" aria-label="第 4 张图片" aria-selected="false"></button></div><button class="slide-arrow" id="slide-next" aria-label="下一张"><i class="fa-solid fa-arrow-right"></i></button></div>
+        </div>
         <div class="hero-copy"><p class="eyebrow" data-copy="eyebrow"></p><h1 data-copy="title"></h1><div class="red-rule"></div><p class="hero-intro" data-copy="intro"></p><div class="hero-bottom"><a class="button button-red" href="#writing"><span data-copy="navWriting"></span><i class="fa-solid fa-arrow-right"></i></a><span class="signature" data-copy="signature"></span></div></div>
         <div class="hero-index">INDEX NO. 001<br>STILL HERE<br><span>STILL PLANTING</span></div>
       </section>
@@ -85,8 +94,8 @@
       <section class="secret-section wrap"><div class="secret-copy"><span class="section-label-inline" data-copy="secretLabel"></span><p data-copy="secretHint"></p></div><div class="star-lock" aria-label="点亮三颗星解锁隐藏来信"><button class="star" aria-label="点亮第一颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第二颗星"><i class="fa-solid fa-star"></i></button><button class="star" aria-label="点亮第三颗星"><i class="fa-solid fa-star"></i></button><span class="star-status">0 / 3</span></div></section>
     </main>
     <footer class="cyber-footer wrap"><a class="brand" href="#top" data-copy="siteName"></a><p data-copy="footerNote"></p><span>© <span id="year"></span> · <span data-copy="footerCredit"></span></span></footer>
-    <button class="cursor-prompt" id="cursor-prompt" aria-hidden="true"><i class="fa-solid fa-sparkles"></i></button>
-    <dialog class="edit-dialog" id="edit-dialog"><form method="dialog" class="edit-shell"><header class="edit-header"><div><span>PERSONAL CONTROL PANEL</span><h2>自定义你的数字花园</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">更改和图片保存在当前浏览器，只影响这台设备。若要让所有访客看到修改，请导出配置后同步更新仓库内容并发布。</p><div class="edit-fields" id="edit-fields"></div><div class="upload-field"><label for="hero-upload">更换主页背景图 <small>PNG / JPG / WebP，建议小于 2 MB，仅本浏览器保存</small></label><input id="hero-upload" type="file" accept="image/png,image/jpeg,image/webp"></div><footer class="edit-footer"><button type="button" class="button button-quiet" id="reset-config">恢复默认</button><span></span><button type="button" class="button button-quiet" id="export-config">导出配置</button><button type="submit" class="button button-red" id="save-config">保存修改</button></footer></form></dialog>
+    <span class="cursor-prompt" id="cursor-prompt" aria-hidden="true"><i class="fa-solid fa-sparkles"></i></span>
+    <dialog class="edit-dialog" id="edit-dialog"><form method="dialog" class="edit-shell"><header class="edit-header"><div><span>PERSONAL CONTROL PANEL</span><h2>自定义你的数字花园</h2></div><button class="icon-button" value="cancel" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button></header><p class="edit-notice">更改和图片保存在当前浏览器，只影响这台设备。若要让所有访客看到修改，请导出配置后同步更新仓库内容并发布。</p><div class="edit-fields" id="edit-fields"></div><div class="upload-field"><label for="hero-upload">替换当前轮播图 <small>PNG / JPG / WebP，建议小于 2 MB；只保存在本浏览器并记住当前页序</small></label><input id="hero-upload" type="file" accept="image/png,image/jpeg,image/webp"></div><footer class="edit-footer"><button type="button" class="button button-quiet" id="reset-config">恢复默认</button><span></span><button type="button" class="button button-quiet" id="export-config">导出配置</button><button type="submit" class="button button-red" id="save-config">保存修改</button></footer></form></dialog>
     <dialog class="letter-dialog" id="letter-dialog"><div class="letter-paper"><button class="icon-button letter-close" id="letter-close" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button><span class="letter-stamp" data-copy="letterStamp"></span><h2 data-copy="secretTitle"></h2><p data-copy="secretText"></p><a class="button button-red secret-link" data-url="secretUrl" target="_blank" rel="noopener"><span data-copy="secretCta"></span></a></div></dialog>`
   document.body.classList.add('cyber-home')
 
@@ -141,7 +150,13 @@
     fields.querySelectorAll('[data-edit]').forEach(input => { input.value = config[input.dataset.edit] || '' })
     localStorage.removeItem(STORAGE_KEY)
     localStorage.removeItem(`${STORAGE_KEY}-image`)
-    document.querySelector('.hero-art img').src = '/img/hacker-garden.jpg'
+    localStorage.removeItem(`${STORAGE_KEY}-image-slide`)
+    slides.forEach(slide => {
+      slide.src = slide.dataset.originalSrc
+      slide.dataset.credit = slide.dataset.originalCredit
+      slide.dataset.creditName = slide.dataset.originalCreditName
+    })
+    showSlide(0)
     applyConfig()
   })
   document.getElementById('export-config').addEventListener('click', () => {
@@ -158,13 +173,64 @@
     if (file.size > 2 * 1024 * 1024) { alert('图片请控制在 2 MB 以内。'); event.target.value = ''; return }
     const reader = new FileReader()
     reader.onload = () => {
-      document.querySelector('.hero-art img').src = reader.result
-      try { localStorage.setItem(`${STORAGE_KEY}-image`, reader.result) } catch (_) { alert('图片太大，浏览器无法保存；请尝试压缩到 1 MB 以内。') }
+      const currentSlide = slides[activeSlide]
+      currentSlide.src = reader.result
+      currentSlide.dataset.credit = 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia'
+      currentSlide.dataset.creditName = '你上传的图片'
+      showSlide(activeSlide)
+      try {
+        localStorage.setItem(`${STORAGE_KEY}-image`, reader.result)
+        localStorage.setItem(`${STORAGE_KEY}-image-slide`, String(activeSlide))
+      } catch (_) { alert('图片太大，浏览器无法保存；请尝试压缩到 1 MB 以内。') }
     }
     reader.readAsDataURL(file)
   })
   const savedImage = localStorage.getItem(`${STORAGE_KEY}-image`)
-  if (savedImage) document.querySelector('.hero-art img').src = savedImage
+  const savedImageSlide = Number(localStorage.getItem(`${STORAGE_KEY}-image-slide`) || 0)
+  const slides = [...document.querySelectorAll('.hero-slide')]
+  slides.forEach(slide => {
+    slide.dataset.originalSrc = slide.getAttribute('src')
+    slide.dataset.originalCredit = slide.dataset.credit
+    slide.dataset.originalCreditName = slide.dataset.creditName
+  })
+  if (savedImage && slides[savedImageSlide]) {
+    slides[savedImageSlide].src = savedImage
+    slides[savedImageSlide].dataset.credit = 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia'
+    slides[savedImageSlide].dataset.creditName = '你上传的图片'
+  }
+  const slideDots = [...document.querySelectorAll('.slide-dot')]
+  const slideCaption = document.querySelector('.hero-slide-caption')
+  let activeSlide = savedImage && slides[savedImageSlide] ? savedImageSlide : 0
+  const showSlide = index => {
+    activeSlide = (index + slides.length) % slides.length
+    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === activeSlide))
+    slideDots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === activeSlide)
+      dot.setAttribute('aria-selected', String(i === activeSlide))
+    })
+    document.querySelector('.slide-count').textContent = `${String(activeSlide + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`
+    slideCaption.querySelector('[data-copy]').dataset.copy = `slide${activeSlide + 1}Title`
+    slideCaption.querySelector('[data-copy]').textContent = config[`slide${activeSlide + 1}Title`]
+    const credit = slideCaption.querySelector('.slide-credit')
+    credit.href = slides[activeSlide].dataset.credit
+    credit.textContent = slides[activeSlide].dataset.creditName
+  }
+  document.getElementById('slide-prev').addEventListener('click', () => showSlide(activeSlide - 1))
+  document.getElementById('slide-next').addEventListener('click', () => showSlide(activeSlide + 1))
+  slideDots.forEach((dot, index) => dot.addEventListener('click', () => showSlide(index)))
+  const heroArt = document.querySelector('.hero-art')
+  let slideTimer = setInterval(() => showSlide(activeSlide + 1), 6500)
+  const stopSlideshow = () => { clearInterval(slideTimer); slideTimer = null }
+  const startSlideshow = () => {
+    if (!slideTimer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) slideTimer = setInterval(() => showSlide(activeSlide + 1), 6500)
+  }
+  heroArt.addEventListener('mouseenter', stopSlideshow)
+  heroArt.addEventListener('mouseleave', startSlideshow)
+  heroArt.addEventListener('focusin', stopSlideshow)
+  heroArt.addEventListener('focusout', startSlideshow)
+  document.addEventListener('visibilitychange', () => document.hidden ? stopSlideshow() : startSlideshow())
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) stopSlideshow()
+  showSlide(activeSlide)
 
   document.getElementById('theme-toggle').addEventListener('click', () => {
     const theme = document.documentElement.dataset.homeTheme === 'dark' ? 'light' : 'dark'
@@ -201,6 +267,8 @@
 
   const prompt = document.getElementById('cursor-prompt')
   let cursorFrame = 0
+  let lastParticle = { x: 0, y: 0 }
+  let particleClock = 0
   document.addEventListener('pointermove', event => {
     if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     if (cursorFrame) cancelAnimationFrame(cursorFrame)
@@ -208,6 +276,20 @@
       prompt.style.transform = `translate(${event.clientX + 14}px, ${event.clientY + 12}px)`
       prompt.classList.add('cursor-visible')
     })
+    const distance = Math.hypot(event.clientX - lastParticle.x, event.clientY - lastParticle.y)
+    const now = performance.now()
+    if (distance > 18 && now - particleClock > 24) {
+      const particle = document.createElement('i')
+      particle.className = 'cursor-particle fa-solid fa-sparkles'
+      particle.setAttribute('aria-hidden', 'true')
+      particle.style.left = `${event.clientX}px`
+      particle.style.top = `${event.clientY}px`
+      particle.style.setProperty('--particle-tilt', `${Math.round(Math.random() * 70 - 35)}deg`)
+      document.body.appendChild(particle)
+      particle.addEventListener('animationend', () => particle.remove(), { once: true })
+      lastParticle = { x: event.clientX, y: event.clientY }
+      particleClock = now
+    }
   })
   document.addEventListener('pointerleave', () => prompt.classList.remove('cursor-visible'))
 })()
