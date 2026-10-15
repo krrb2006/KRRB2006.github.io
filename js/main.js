@@ -8,15 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // The generated Hexo homepage uses a bespoke, editable editorial layout.
   // Keep the existing Butterfly behavior untouched on article/archive pages.
   if (location.pathname === '/' || location.pathname === '/index.html') {
-    const stylesheet = document.createElement('link')
-    stylesheet.rel = 'stylesheet'
-    stylesheet.href = '/css/hacker-home.css?v=14'
-    document.head.appendChild(stylesheet)
-
-    const homepage = document.createElement('script')
-    homepage.src = '/js/hacker-home.js?v=14'
-    homepage.defer = true
-    document.head.appendChild(homepage)
+    // Homepage CSS and its renderer are loaded in the HTML head so the old
+    // Hexo template never paints before the custom garden replaces it.
     return
   }
 
